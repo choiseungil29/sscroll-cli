@@ -10,7 +10,12 @@ import infiniteScroll from 'vue-infinite-scroll'
 
 Vue.config.productionTip = false
 
-axios.defaults.baseURL = 'http://sscroll.site'
+if (process.env.NODE_ENV === 'production') {
+  axios.defaults.baseURL = ''
+} else {
+  axios.defaults.baseURL = 'http://sscroll.site'
+}
+console.log(process.env.NODE_ENV)
 
 Vue.use(infiniteScroll)
 Vue.use(VueRouter)
