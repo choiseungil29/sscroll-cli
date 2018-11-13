@@ -1,15 +1,18 @@
 <template>
   <div>
     <Nav />
-    <router-view/>
+    <Content />
   </div>
 </template>
 
 <script>
-import Nav from './components/Nav'
+import Content from './Content'
+import Nav from './Nav'
+
 export default {
-  name: 'App',
+  name: 'Body',
   components: {
+    Content,
     Nav
   }
 }
