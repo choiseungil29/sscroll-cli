@@ -77,7 +77,7 @@ button#ward {
 div.data {
   width: 100%;
   max-width: 1080px;
-  margin-top: 2rem;
+  padding-top: 2rem;
   margin-bottom: 2rem;
 }
 

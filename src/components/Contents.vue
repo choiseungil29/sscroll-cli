@@ -1,7 +1,9 @@
 <template>
   <div v-infinite-scroll="loadMore" infinite-scroll-distance="1920">
-    <div v-for="content in contents">
-      <Content :pid="content.permanent_id" />
+    <div v-for="(content, index) in contents" :key="content.permanent_id">
+      <div :class="{ gray: index%2 == 0 }" style="height: 100%;">
+        <Content :pid="content.permanent_id" />
+      </div>
       <hr>
     </div> 
   </div>
@@ -53,7 +55,12 @@ export default {
 <style scoped>
 hr {
   height: 6px;
-  background: url(http://ibrahimjabbari.com/english/images/hr-11.png) repeat-x 0 0;
+  /* background: url(http://ibrahimjabbari.com/english/images/hr-11.png) repeat-x 0 0; */
   border: 0;
+  margin: 0;
+}
+
+.gray {
+  background-color: gray !important;
 }
 </style>
