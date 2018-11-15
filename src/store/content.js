@@ -15,7 +15,6 @@ const contentStore = new Vuex.Store({
       let content = state.contents.find(c => c.permanent_id == pid)
       return content
     }
-
   },
 
   mutations: {
