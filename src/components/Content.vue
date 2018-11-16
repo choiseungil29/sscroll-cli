@@ -8,6 +8,14 @@
       <div class="col" v-html="content.data">
       </div>
     </div>
+    <!-- <div class="comments">
+      <div class="input-group">
+        <input id="comment" type="text" class="form-control" placeholder="댓글">
+        <span class="input-group-btn">
+          <button id="addComment" class="btn btn-primary btn-block" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;" type="button">작성</button>
+        </span>
+      </div>
+    </div> -->
   </div>
 </template>
 
@@ -24,7 +32,14 @@ export default {
   },
 
   created() {
+    console.log('created content vue')
     contentStore.dispatch('fetchById', this.pid)
+  },
+
+  mounted() {
+    $(window).scroll((event) => {
+      console.log(event.currentTarget.scrollY)
+    })
   },
 
   data() {
@@ -63,12 +78,16 @@ export default {
     next(event) {
       let pid = event.currentTarget.getAttribute('data-pid')
       contentStore.commit('removeByPid', pid)
+    },
+
+    viewed(event) {
+
     }
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 button#ward {
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -81,7 +100,13 @@ div.data {
   margin-bottom: 2rem;
 }
 
-* >>> img {
+* /deep/ img {
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+}
+
+* /deep/ iframe {
   max-width: 100%;
   width: 100%;
   height: auto;
@@ -89,6 +114,10 @@ div.data {
 
 button.btn-primary {
   margin-left: 15px;
-
 }
+
+button.btn-primary#addComment {
+  margin-left: 0px;
+}
+
 </style>

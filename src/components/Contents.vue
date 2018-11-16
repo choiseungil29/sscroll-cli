@@ -41,14 +41,6 @@ export default {
       this.minHeight = window.innerHeight - $('nav#header').height()
     }
   },
-
-  mounted() {
-    $(window).scroll((event) => {
-      console.log('scroll')
-    })
-
-  }
-
 };
 </script>
 

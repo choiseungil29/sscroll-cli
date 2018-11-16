@@ -5,6 +5,7 @@ import Content from './components/Content'
 import Contents from './components/Contents'
 import Boards from './components/Boards'
 import Board from './components/Board'
+import Login from './components/Login'
 import axios from 'axios'
 import infiniteScroll from 'vue-infinite-scroll'
 
@@ -24,6 +25,7 @@ const routes = [
   { path: '/', component: Contents },
   { path: '/board', component: Boards },
   { path: '/board/:bid', name: 'board', component: Board },
+  { path: '/login', name: 'login', component: Login },
   { path: '/:pid', name: 'content', component: Content, props: true }
 ]
 
