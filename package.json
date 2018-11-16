@@ -17,6 +17,8 @@
     "eslint-plugin-standard": "^4.0.0",
     "fullpage.js": "^3.0.3",
     "jquery-scrollify": "^1.0.19",
+    "node-sass": "^4.10.0",
+    "sass-loader": "^7.1.0",
     "vue": "^2.5.17",
     "vue-infinite-scroll": "^2.0.2",
     "vue-router": "^3.0.1",

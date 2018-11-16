@@ -52,6 +52,9 @@ const boardStore = new Vuex.Store({
     },
 
     fetchById (context, id) {
+      if (context.state.boards.find(b => b.id == id)) {
+        return
+      }
       axios.get('/api/board', { params: { id: id } })
         .then((res) => {
           context.commit('loadOne', res.data[0])

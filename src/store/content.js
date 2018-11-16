@@ -54,6 +54,9 @@ const contentStore = new Vuex.Store({
     },
 
     fetchById (context, pid) {
+      if (context.state.contents.find(c => c.permanent_id == pid)) {
+        return
+      }
       axios.get(`/api/${pid}`)
         .then((res) => {
           context.commit('fetch', res.data)
