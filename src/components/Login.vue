@@ -30,8 +30,13 @@ export default {
       if (status) {
         axios.post('/api/login', {accessToken: naverLogin.accessToken.accessToken, loginType: 'naver'})
         .then((res) => {
-          console.log('login')
-          console.log(res)
+          if (res.status == 201) {
+            // signup
+            this.$router.push({ path: '/signup' })
+          } else if (res.status == 200) {
+            // user
+            this.$router.push({ path: '/' })
+          }
         }).catch((err) => {
           console.log('err')
           console.log(err)
