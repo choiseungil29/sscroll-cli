@@ -38,7 +38,8 @@ export default {
 
   mounted() {
     $(window).scroll((event) => {
-      console.log(event.currentTarget.scrollY)
+      let y = event.currentTarget.scrollY
+      console.log(this)
     })
   },
 
@@ -109,7 +110,6 @@ div.data {
 * /deep/ iframe {
   max-width: 100%;
   width: 100%;
-  height: auto;
 }
 
 button.btn-primary {
