@@ -10,6 +10,7 @@
 
 <script>
 import axios from 'axios'
+import user from '../store/user'
 
 export default {
   name: 'Signup',
@@ -21,23 +22,17 @@ export default {
   },
 
   methods: {
-
     submit(event) {
-      axios.post('/api/signup', { nickname: this.nickname })
-        .then((res) => {
-          console.log(res)
-          alert(`${nickname}님 환영합니다.`)
+      user.dispatch('modifyNickname', this.nickname)
+        .then(res => {
+          alert(`${this.nickname}님 환영합니다.`)
           this.$router.push({ path: '/' })
-        }).catch((err) => {
+        }).catch(err => {
           console.log('err')
-          alert('이미 사용중인 닉네임입니다.')
           console.log(err)
         })
-
     }
-
   }
-
 }
 </script>
 
