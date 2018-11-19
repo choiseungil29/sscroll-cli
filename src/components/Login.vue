@@ -34,6 +34,11 @@ export default {
           .then(res => {
             console.log('succeed login')
             console.log(res)
+            if (res.nickname == null) {
+              this.$router.push({ path: '/signup' })
+            } else {
+              this.$router.push({ path: '/' })
+            }
           }).catch(err => {
             console.log('err')
             console.log(err)
