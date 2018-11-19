@@ -13,7 +13,7 @@ const user = new Vuex.Store({
   },
 
   getters: {
-    isLogin: (state) => {
+    isLogin: (state) => () => {
       return state.email != null
     }
   },
