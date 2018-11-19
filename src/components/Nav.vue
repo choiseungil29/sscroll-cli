@@ -7,7 +7,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="nav navbar-nav ml-auto">
-        <li><router-link to='/login' class="nav-link">로그인</router-link></li>
+        <li v-if='user === false'><router-link to='/login' class="nav-link">로그인</router-link></li>
         <li><router-link to='/recent' class="nav-link">최근 본 게시물</router-link></li>
         <li><router-link to='/ward' class="nav-link">와드</router-link></li>
         <li><router-link to='/board' class="nav-link">자유게시판</router-link></li>
@@ -17,8 +17,16 @@
 </template>
 
 <script>
+import user from '../store/user'
+
 export default {
-  name: 'Nav'
+  name: 'Nav',
+
+  data() {
+    return {
+      user: user.getters.isLogin()
+    }
+  }
 }
 </script>
 
