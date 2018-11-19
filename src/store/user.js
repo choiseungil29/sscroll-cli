@@ -22,14 +22,16 @@ const user = new Vuex.Store({
 
   actions: {
     login (context, token) {
-      axios.post('/api/login', { accessToken: token, loginType: 'NAVER' })
-        .then((res) => {
-          console.log(res.data)
-          context.commit('login', res.data)
-        }).catch((err) => {
-          console.log('err')
-          console.log(err)
-        })
+      return new Promise((resolve, reject) => {
+        axios.post('/api/login', { accessToken: token, loginType: 'NAVER' })
+          .then((res) => {
+            console.log(res.data)
+            context.commit('login', res.data)
+            resolve(context.state)
+          }).catch((err) => {
+            reject(err)
+          })
+      })
     }
   }
 })
