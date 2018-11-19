@@ -11,6 +11,7 @@
 
 <script>
 import axios from 'axios'
+import user from '../store/user'
 
 export default {
   name: 'Login',
@@ -29,19 +30,7 @@ export default {
 
     naverLogin.getLoginStatus((status) => {
       if (status) {
-        axios.post('/api/login', {accessToken: naverLogin.accessToken.accessToken, loginType: 'naver'})
-        .then((res) => {
-          if (res.status == 201) {
-            // signup
-            this.$router.push({ path: '/signup' })
-          } else if (res.status == 200) {
-            // user
-            this.$router.push({ path: '/' })
-          }
-        }).catch((err) => {
-          console.log('err')
-          console.log(err)
-        })
+        user.dispatch('login', naverLogin.accessToken.accessToken)
       }
     })
 

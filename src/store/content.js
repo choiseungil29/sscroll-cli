@@ -24,7 +24,6 @@ const contentStore = new Vuex.Store({
 
   mutations: {
     fetchArray (state, data) {
-      console.log('mutate')
       state.contents = state.contents.concat(data)
       console.log(state.contents)
     },
