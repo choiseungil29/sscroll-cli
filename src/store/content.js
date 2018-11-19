@@ -14,6 +14,11 @@ const contentStore = new Vuex.Store({
     byId: (state) => (pid) => {
       let content = state.contents.find(c => c.permanent_id == pid)
       return content
+    },
+
+    index: (state) => (pid) => {
+      let content = state.contents.find(c => c.permanent_id == pid)
+      return state.contents.indexOf(content)
     }
   },
 
