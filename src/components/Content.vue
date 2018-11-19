@@ -89,8 +89,9 @@ export default {
     },
 
     next(event) {
-      let pid = event.currentTarget.getAttribute('data-pid')
-      contentStore.commit('removeByPid', pid)
+      this.viewed = true
+      contentStore.commit('removeByPid', this.pid)
+      contentStore.dispatch('viewContent', this.pid)
     }
   }
 }
