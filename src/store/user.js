@@ -12,6 +12,12 @@ const user = new Vuex.Store({
     nickname: null
   },
 
+  getters: {
+    isLogin: (state) => {
+      return state.email != null
+    }
+  },
+
   mutations: {
     login (state, data) {
       state.email = data.email
