@@ -31,6 +31,13 @@ export default {
     naverLogin.getLoginStatus((status) => {
       if (status) {
         user.dispatch('login', naverLogin.accessToken.accessToken)
+          .then(res => {
+            console.log('succeed login')
+            console.log(res)
+          }).catch(err => {
+            console.log('err')
+            console.log(err)
+          })
       }
     })
 
