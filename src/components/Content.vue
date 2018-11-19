@@ -1,5 +1,5 @@
 <template>
-  <div class="data container section" v-if="content" :class="{ gray: index%2 == 0 }">
+  <div class="data container section" v-if="content" :class="{ gray: index%2 == 0 }" :ref="content.permanent_id">
     <h3>{{ content.title }}</h3>
     <button id='ward' class="btn btn-primary">와드</button>
     <button id='link' v-on:click="link" :data-pid="content.permanent_id" class="btn btn-primary">링크 복사</button>
@@ -32,19 +32,28 @@ export default {
   },
 
   created() {
-    console.log('created content vue')
     contentStore.dispatch('fetchById', this.pid)
   },
 
   mounted() {
     $(window).scroll((event) => {
+      if (this.viewed) {
+        return
+      }
       let y = event.currentTarget.scrollY
-      console.log(this)
+      let clientRect = this.$refs[this.pid].getBoundingClientRect()
+      if (-clientRect.y > clientRect.height) {
+        console.log('viewed')
+        this.viewed = true
+        contentStore.dispatch('viewContent', this.pid)
+        // this.pid를
+      }
     })
   },
 
   data() {
     return {
+      viewed: false
     }
   },
 
@@ -59,7 +68,6 @@ export default {
   },
 
   methods: {
-
     ward(event) {
 
     },
@@ -83,10 +91,6 @@ export default {
     next(event) {
       let pid = event.currentTarget.getAttribute('data-pid')
       contentStore.commit('removeByPid', pid)
-    },
-
-    viewed(event) {
-
     }
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <div v-infinite-scroll="loadMore" infinite-scroll-distance="1920" class="main">
-    <div v-for="(content, index) in contents" :key="content.permanent_id">
-      <div :class="{ gray: index%2 == 0 }" style="height: 100%;">
+    <div v-for="content in contents" :key="content.permanent_id">
+      <div style="height: 100%;">
         <Content :pid="content.permanent_id" />
       </div>
       <hr>
