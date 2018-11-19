@@ -17,6 +17,10 @@ const user = new Vuex.Store({
       state.email = data.email
       state.signup_type = data.signup_type
       state.nickname = data.nickname
+    },
+
+    nickname (state, nickname) {
+      state.nickname = nickname
     }
   },
 
@@ -29,6 +33,18 @@ const user = new Vuex.Store({
             context.commit('login', res.data)
             resolve(context.state)
           }).catch((err) => {
+            reject(err)
+          })
+      })
+    },
+
+    modifyNickname (context, newNickname) {
+      return new Promise((resolve, reject) => {
+        axios.post('/api/signup', { nickname: newNickname })
+          .then(res => {
+            context.commit('nickname', newNickname)
+            resolve(res.data)
+          }).catch(err => {
             reject(err)
           })
       })
