@@ -15,8 +15,9 @@ Vue.config.productionTip = false
 if (process.env.NODE_ENV === 'production') {
   axios.defaults.baseURL = ''
 } else {
-  axios.defaults.baseURL = 'http://sscroll.site'
+  axios.defaults.baseURL = 'http://0.0.0.0:8000'
 }
+axios.defaults.withCredentials = true
 console.log(process.env.NODE_ENV)
 
 Vue.use(infiniteScroll)
