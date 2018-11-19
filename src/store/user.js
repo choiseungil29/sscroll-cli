@@ -5,7 +5,6 @@ import axios from 'axios'
 
 Vue.use(Vuex)
 
-
 const user = new Vuex.Store({
   state: {
     email: null,
@@ -14,16 +13,16 @@ const user = new Vuex.Store({
   },
 
   mutations: {
-    login (context, data) {
+    login (state, data) {
       state.email = data.email
       state.signup_type = data.signup_type
       state.nickname = data.nickname
     }
-  }
+  },
 
   actions: {
     login (context, token) {
-      axios.post('/api/login', {accessToken: token, loginType: 'NAVER'})
+      axios.post('/api/login', { accessToken: token, loginType: 'NAVER' })
         .then((res) => {
           console.log(res.data)
           context.commit('login', res.data)
@@ -31,9 +30,8 @@ const user = new Vuex.Store({
           console.log('err')
           console.log(err)
         })
-
     }
-
   }
-
 })
+
+export default user
