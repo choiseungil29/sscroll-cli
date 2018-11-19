@@ -1,5 +1,5 @@
 <template>
-  <div class="data container section" v-if="content">
+  <div class="data container section" v-if="content" :class="{ gray: index%2 == 0 }">
     <h3>{{ content.title }}</h3>
     <button id='ward' class="btn btn-primary">와드</button>
     <button id='link' v-on:click="link" :data-pid="content.permanent_id" class="btn btn-primary">링크 복사</button>
@@ -51,6 +51,10 @@ export default {
   computed: {
     content() {
       return contentStore.getters.byId(this.pid)
+    },
+
+    index() {
+      return contentStore.getters.index(this.pid)
     }
   },
 
@@ -99,6 +103,7 @@ div.data {
   max-width: 1080px;
   padding-top: 2rem;
   margin-bottom: 2rem;
+  background-color: white;
 }
 
 * /deep/ img {
@@ -120,4 +125,7 @@ button.btn-primary#addComment {
   margin-left: 0px;
 }
 
+.gray {
+  background-color: gray !important;
+}
 </style>

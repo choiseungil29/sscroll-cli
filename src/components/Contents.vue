@@ -1,5 +1,5 @@
 <template>
-  <div v-infinite-scroll="loadMore" infinite-scroll-distance="1920">
+  <div v-infinite-scroll="loadMore" infinite-scroll-distance="1920" class="main">
     <div v-for="(content, index) in contents" :key="content.permanent_id">
       <div :class="{ gray: index%2 == 0 }" style="height: 100%;">
         <Content :pid="content.permanent_id" />
@@ -52,7 +52,8 @@ hr {
   margin: 0;
 }
 
-.gray {
-  background-color: gray !important;
+div.main {
+  background-color: blue;
 }
+
 </style>
