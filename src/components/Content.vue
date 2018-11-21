@@ -2,7 +2,7 @@
   <carousel :per-page="1" :pagination-size="0" :center-mode="true" :navigate-to="1" @pageChange="pageChange">
     <slide>
       <div class="data container section" :class="{ gray: index%2 == 0 }">
-	하위ㅋㅋㅋㅋ
+	와드(예정)
       </div>
     </slide>
     <slide>
@@ -27,7 +27,7 @@
     </slide>
     <slide>
       <div class="data container section" :class="{ gray: index%2 == 0 }">
-	하위ㅋㅋㅋㅋ
+	게시물 넘기기
       </div>
     </slide>
   </carousel>
