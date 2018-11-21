@@ -23,7 +23,7 @@ export default {
   mounted() {
     let naverLogin = new naver.LoginWithNaverId({
       clientId: 'ZRAj_EfDpLWgznFlcf9w',
-      callbackUrl: 'http://sscroll.site/login',
+      callbackUrl: 'http://sscroll.net/login',
       loginButton: {color: 'green', type: 2, height: 60}
     });
     naverLogin.init()
