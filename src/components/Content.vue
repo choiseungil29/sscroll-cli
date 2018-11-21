@@ -1,5 +1,5 @@
 <template>
-  <carousel :per-page="1" :pagination-size="0" :center-mode="true" :navigate-to="1">
+  <carousel :per-page="1" :pagination-size="0" :center-mode="true" :navigate-to="1" @pageChange="pageChange">
     <slide>
       <div class="data container section" :class="{ gray: index%2 == 0 }">
 	하위ㅋㅋㅋㅋ
@@ -111,6 +111,15 @@ export default {
     next(event) {
       this.viewed = true
       contentStore.dispatch('removeByPid', this.pid)
+    },
+
+    pageChange(currentPage) {
+      if (currentPage == 0) {
+	this.ward(null)
+      } else if (currentPage == 2) {
+	setTimeout(this.next, 500)
+	// 여기에 vibrate API 적용할수 있으면 손맛좋을듯
+      }
     }
   }
 }
