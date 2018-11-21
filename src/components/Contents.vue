@@ -4,7 +4,6 @@
       <div style="height: 100%;">
         <Content :pid="content.permanent_id" />
       </div>
-      <hr>
     </div> 
   </div>
 </template>
