@@ -1,26 +1,41 @@
 <template>
-  <div class="data container section" v-if="content" :class="{ gray: index%2 == 0 }" :ref="content.permanent_id">
-    <h3>{{ content.title }}</h3>
-    <button id='ward' class="btn btn-primary">와드</button>
-    <button id='link' v-on:click="link" :data-pid="content.permanent_id" class="btn btn-primary">링크 복사</button>
-    <button id='next' v-on:click="next" :data-pid="content.permanent_id" class="btn btn-primary">거르기</button>
-    <div class="row">
-      <div class="col" v-html="content.data">
+  <carousel :per-page="1" :pagination-size="0" :center-mode="true" :navigate-to="1">
+    <slide>
+      <div class="data container section" :class="{ gray: index%2 == 0 }">
+	하위ㅋㅋㅋㅋ
       </div>
+    </slide>
+    <slide>
+    <div class="data container section" v-if="content" :class="{ gray: index%2 == 0 }" :ref="content.permanent_id">
+      <h3>{{ content.title }}</h3>
+      <button id='ward' class="btn btn-primary">와드</button>
+      <button id='link' v-on:click="link" :data-pid="content.permanent_id" class="btn btn-primary">링크 복사</button>
+      <button id='next' v-on:click="next" :data-pid="content.permanent_id" class="btn btn-primary">거르기</button>
+      <div class="row">
+	<div class="col" v-html="content.data">
+	</div>
+      </div>
+      <!-- <div class="comments">
+	<div class="input-group">
+	  <input id="comment" type="text" class="form-control" placeholder="댓글">
+	  <span class="input-group-btn">
+	    <button id="addComment" class="btn btn-primary btn-block" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;" type="button">작성</button>
+	  </span>
+	</div>
+      </div> -->
     </div>
-    <!-- <div class="comments">
-      <div class="input-group">
-        <input id="comment" type="text" class="form-control" placeholder="댓글">
-        <span class="input-group-btn">
-          <button id="addComment" class="btn btn-primary btn-block" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;" type="button">작성</button>
-        </span>
+    </slide>
+    <slide>
+      <div class="data container section" :class="{ gray: index%2 == 0 }">
+	하위ㅋㅋㅋㅋ
       </div>
-    </div> -->
-  </div>
+    </slide>
+  </carousel>
 </template>
 
 <script>
 import contentStore from '../store/content'
+import { Carousel, Slide } from 'vue-carousel';
 
 export default {
   name: 'Content',
@@ -29,6 +44,11 @@ export default {
     pid: {
       type: String
     }
+  },
+
+  components: {
+    Carousel,
+    Slide
   },
 
   created() {
@@ -90,8 +110,7 @@ export default {
 
     next(event) {
       this.viewed = true
-      contentStore.commit('removeByPid', this.pid)
-      contentStore.dispatch('viewContent', this.pid)
+      contentStore.dispatch('removeByPid', this.pid)
     }
   }
 }
@@ -104,8 +123,9 @@ button#ward {
 }
 
 div.data {
-  width: 100%;
+  width: 100vw;
   max-width: 1080px;
+  height: 100%;
   padding-top: 2rem;
   margin-bottom: 2rem;
   background-color: white;
