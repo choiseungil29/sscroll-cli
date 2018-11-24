@@ -1,5 +1,5 @@
 <template>
-  <carousel :per-page="1" :pagination-size="0" :center-mode="true" :min-swipe-distance="100" @pageChange="pageChange" :mouseDrag="mouseDrag" ref="carousel">
+  <carousel :per-page="1" :pagination-size="0" :center-mode="true" :min-swipe-distance="50" @pageChange="pageChange" :mouseDrag="mouseDrag" ref="carousel">
     <!-- <slide>
       <div class="data container section" :class="{ gray: index%2 == 0 }">
 	와드(예정)
