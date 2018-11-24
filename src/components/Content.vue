@@ -1,5 +1,5 @@
 <template>
-  <carousel :per-page="1" :pagination-size="0" :center-mode="true" :min-swipe-distance="150" @pageChange="pageChange" ref="carousel">
+  <carousel :per-page="1" :pagination-size="0" :center-mode="true" :min-swipe-distance="150" @pageChange="pageChange" :mouseDrag="mouseDrag" ref="carousel">
     <!-- <slide>
       <div class="data container section" :class="{ gray: index%2 == 0 }">
 	와드(예정)
@@ -71,19 +71,18 @@ export default {
     })
 
     $(window).bind('touchstart', event => {
-      this.$refs.carousel.mouseDrag = false
-      console.log(this.$refs.carousel.mouseDrag)
+      this.mouseDrag = false
     })
 
     $(window).bind('touchend', event => {
-      this.$refs.carousel.mouseDrag = true
-      console.log(this.$refs.carousel.mouseDrag)
+      this.mouseDrag = true
     })
   },
 
   data() {
     return {
-      viewed: false
+      viewed: false,
+      mouseDrag: true
     }
   },
 
