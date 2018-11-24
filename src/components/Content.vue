@@ -70,12 +70,14 @@ export default {
       }
     })
 
-    $(window).touchstart(event => {
+    $(window).bind('touchstart', event => {
       this.$refs.carousel.mouseDrag = false
+      console.log(this.$refs.carousel.mouseDrag)
     })
 
-    $(window).touchend(event => {
+    $(window).bind('touchend', event => {
       this.$refs.carousel.mouseDrag = true
+      console.log(this.$refs.carousel.mouseDrag)
     })
   },
 
