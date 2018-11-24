@@ -72,10 +72,10 @@ export default {
 
     $(window).touchstart(event => {
       this.$refs.carousel.mouseDrag = false
-    }
+    })
 
     $(window).touchend(event => {
-      this.$refs.carousel.mouseDrag = true   
+      this.$refs.carousel.mouseDrag = true
     })
   },
 
