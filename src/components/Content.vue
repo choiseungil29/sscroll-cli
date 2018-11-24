@@ -153,6 +153,7 @@ div.data {
   height: 100%;
   padding-top: 2rem;
   background-color: white;
+  padding-bottom: 2rem;
 }
 
 * /deep/ img {
