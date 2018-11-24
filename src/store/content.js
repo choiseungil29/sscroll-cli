@@ -31,7 +31,12 @@ const contentStore = new Vuex.Store({
 
   mutations: {
     fetchArray (state, data) {
-      state.contents = state.contents.concat(data)
+      for (let content of data) {
+        if (state.contents.find(c => c.permanent_id == content,permanent_id)) {
+          continue
+        }
+        state.contents.push(content)
+      }
     },
 
     fetch (state, data) {
