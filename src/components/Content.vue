@@ -107,8 +107,7 @@ div.data {
   width: 100%;
   max-width: 1080px;
   padding-top: 2rem;
-  margin-bottom: 2rem;
-  background-color: white;
+  background-color: #64CCFF;
 }
 
 * /deep/ img {
@@ -131,6 +130,6 @@ button.btn-primary#addComment {
 }
 
 .gray {
-  background-color: gray !important;
+  background-color: #4FA7E8;
 }
 </style>

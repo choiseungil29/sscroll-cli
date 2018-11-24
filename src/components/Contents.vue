@@ -53,7 +53,7 @@ hr {
 }
 
 div.main {
-  background-color: blue;
+  background-color: white;
 }
 
 </style>
