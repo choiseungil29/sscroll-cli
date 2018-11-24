@@ -71,10 +71,12 @@ export default {
     })
 
     $(window).bind('touchstart', event => {
+      console.log('touch start')
       this.mouseDrag = false
     })
 
     $(window).bind('touchend', event => {
+      console.log('touch end')
       this.mouseDrag = true
     })
   },

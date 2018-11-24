@@ -53,6 +53,7 @@ const contentStore = new Vuex.Store({
     fetchRandom (context) {
       axios.get(`/api/fill`)
         .then((res) => {
+          console.log('fill array')
           context.commit('fetchArray', res.data)
         }).catch((err) => {
           console.log(err)
@@ -83,7 +84,10 @@ const contentStore = new Vuex.Store({
     removeByPid (context, pid) {
       context.commit('removeByPid', pid)
       context.dispatch('viewContent', pid)
+      console.log(context.state.contents.length)
       if (context.state.contents.length < 3) {
+        console.log('hi!')
+        console.log(context)
         context.dispatch('fetchRandom')
       }
     }
