@@ -1,12 +1,12 @@
 <template>
-  <carousel :per-page="1" :pagination-size="0" :center-mode="true" :navigate-to="1" :min-swipe-distance="150" @pageChange="pageChange">
-    <slide>
+  <carousel :per-page="1" :pagination-size="0" :center-mode="true" :min-swipe-distance="150" @pageChange="pageChange">
+    <!-- <slide>
       <div class="data container section" :class="{ gray: index%2 == 0 }">
 	와드(예정)
       </div>
-    </slide>
+    </slide> -->
     <slide>
-    <div class="data container section" v-if="content" :class="{ gray: index%2 == 0 }" :ref="content.permanent_id">
+    <div :id="content.permanent_id" class="data container section" v-if="content" :class="{ gray: index%2 == 0 }" :ref="content.permanent_id">
       <h3>{{ content.title }}</h3>
       <button id='ward' class="btn btn-primary">와드</button>
       <button id='link' v-on:click="link" :data-pid="content.permanent_id" class="btn btn-primary">링크 복사</button>
@@ -34,8 +34,9 @@
 </template>
 
 <script>
+import VueScrollTo from 'vue-scrollto'
 import contentStore from '../store/content'
-import { Carousel, Slide } from 'vue-carousel';
+import { Carousel, Slide } from 'vue-carousel'
 
 export default {
   name: 'Content',
@@ -62,7 +63,9 @@ export default {
       }
       let y = event.currentTarget.scrollY
       let clientRect = this.$refs[this.pid].getBoundingClientRect()
+      console.log(y)
       if (-clientRect.y > clientRect.height) {
+        console.log(clientRect)
         console.log('viewed')
         this.viewed = true
         contentStore.dispatch('viewContent', this.pid)
@@ -109,18 +112,22 @@ export default {
     },
 
     next(event) {
+      VueScrollTo.scrollTo('#' + CSS.escape(this.pid), 0)
       this.viewed = true
       contentStore.dispatch('removeByPid', this.pid)
     },
 
     pageChange(currentPage) {
-      if (currentPage == 0) {
+      if (currentPage == 1) {
+	setTimeout(this.next, 500)
+      }
+      /* if (currentPage == 0) {
 	this.ward(null)
-      } else if (currentPage == 2) {
+      } else if (currentPage == 1) {
 	// window.navigator.vibrate(200);
 	setTimeout(this.next, 500)
 	// 여기에 vibrate API 적용할수 있으면 손맛좋을듯
-      }
+      } */
     }
   }
 }
@@ -137,7 +144,7 @@ div.data {
   max-width: 1080px;
   height: 100%;
   padding-top: 2rem;
-  background-color: #64CCFF;
+  background-color: white;
 }
 
 * /deep/ img {
@@ -160,6 +167,6 @@ button.btn-primary#addComment {
 }
 
 .gray {
-  background-color: #4FA7E8;
+  background-color: white;
 }
 </style>

@@ -52,7 +52,7 @@ hr {
 }
 
 div.main {
-  background-color: white;
+  background-color: #CFCFCF;
 }
 
 </style>

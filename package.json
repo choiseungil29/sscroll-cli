@@ -26,6 +26,7 @@
     "vue-infinite-scroll": "^2.0.2",
     "vue-loader": "^15.4.2",
     "vue-router": "^3.0.1",
+    "vue-scrollto": "^2.13.0",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
