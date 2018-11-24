@@ -1,5 +1,5 @@
 <template>
-  <carousel :per-page="1" :pagination-size="0" :center-mode="true" :min-swipe-distance="150" @pageChange="pageChange">
+  <carousel :per-page="1" :pagination-size="0" :center-mode="true" :min-swipe-distance="150" @pageChange="pageChange" :mouseDrag="false" ref="carousel">
     <!-- <slide>
       <div class="data container section" :class="{ gray: index%2 == 0 }">
 	와드(예정)
@@ -58,19 +58,21 @@ export default {
 
   mounted() {
     $(window).scroll((event) => {
+      this.$refs.carousel.mouseDrag = false
       if (this.viewed) {
         return
       }
       let y = event.currentTarget.scrollY
       let clientRect = this.$refs[this.pid].getBoundingClientRect()
-      console.log(y)
       if (-clientRect.y > clientRect.height) {
-        console.log(clientRect)
-        console.log('viewed')
         this.viewed = true
         contentStore.dispatch('viewContent', this.pid)
         // this.pid를
       }
+    }),
+
+    $(window).touchend(event => {
+      this.$refs.carousel.mouseDrag = true   
     })
   },
 
