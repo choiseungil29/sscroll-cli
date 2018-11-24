@@ -78,6 +78,14 @@ const contentStore = new Vuex.Store({
         }).catch(err => {
           console.log(err)
         })
+    },
+    
+    removeByPid (context, pid) {
+      context.commit('removeByPid', pid)
+      context.dispatch('viewContent', pid)
+      if (context.state.contents.length < 3) {
+	context.dispatch('fetchRandom')
+      }
     }
   }
 })
