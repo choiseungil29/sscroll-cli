@@ -8,13 +8,17 @@
     <slide>
     <div :id="content.permanent_id" class="data container section" v-if="content" :class="{ gray: index%2 == 0 }" :ref="content.permanent_id">
       <h3>{{ content.title }}</h3>
-      <button id='ward' class="btn btn-primary">와드</button>
-      <button id='link' v-on:click="link" :data-pid="content.permanent_id" class="btn btn-primary">링크 복사</button>
-      <button id='next' v-on:click="next" :data-pid="content.permanent_id" class="btn btn-primary">거르기</button>
+      <button class="btn btn-primary">와드</button>
+      <button v-on:click="link" :data-pid="content.permanent_id" class="btn btn-primary">링크 복사</button>
+      <button v-on:click="next" :data-pid="content.permanent_id" class="btn btn-primary">거르기</button>
       <div class="row">
 	<div class="col" v-html="content.data">
 	</div>
       </div>
+      <button class="btn btn-primary">와드</button>
+      <button v-on:click="link" :data-pid="content.permanent_id" class="btn btn-primary">링크 복사</button>
+      <button v-on:click="next" :data-pid="content.permanent_id" class="btn btn-primary">거르기</button>
+
       <!-- <div class="comments">
 	<div class="input-group">
 	  <input id="comment" type="text" class="form-control" placeholder="댓글">
