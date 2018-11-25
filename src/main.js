@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import VueAnalytics from 'vue-analytics'
 import VueRouter from 'vue-router'
 import App from './App'
 import Content from './components/Content'
@@ -22,6 +23,9 @@ console.log(process.env.NODE_ENV)
 
 Vue.use(infiniteScroll)
 Vue.use(VueRouter)
+Vue.use(VueAnalytics, {
+  id: 'UA-120460450-1'
+})
 
 const routes = [
   { path: '/', name: 'main', component: Contents },

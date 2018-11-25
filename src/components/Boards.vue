@@ -35,6 +35,12 @@ export default {
     return {
       boards: boardStore.state.boards
     }
+  },
+
+  methods: {
+    track() {
+      this.$ga.page('/boards')
+    }
   }
 }
 </script>

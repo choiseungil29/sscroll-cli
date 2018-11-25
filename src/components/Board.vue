@@ -34,6 +34,12 @@ export default {
     board() {
       return boardStore.getters.byId(this.id)
     }
+  },
+
+  methods: {
+    track() {
+      this.$ga.page('/board/' + this.$route.params.bid)
+    }
   }
 }
 </script>

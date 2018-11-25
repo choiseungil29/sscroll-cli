@@ -136,6 +136,10 @@ export default {
 	setTimeout(this.next, 500)
 	// 여기에 vibrate API 적용할수 있으면 손맛좋을듯
       } */
+    },
+
+    track() {
+      this.$ga.page('/contents/' + this.pid)
     }
   }
 }

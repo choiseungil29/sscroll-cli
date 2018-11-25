@@ -52,6 +52,12 @@ export default {
   data() {
     return {
     }
+  },
+
+  methods: {
+    track() {
+      this.$ga.page('/login')
+    }
   }
 }
 </script>
