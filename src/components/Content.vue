@@ -11,7 +11,7 @@
       <button class="btn btn-primary">와드</button>
       <button v-on:click="link" :data-pid="content.permanent_id" class="btn btn-primary">링크 복사</button>
       <button v-on:click="next" :data-pid="content.permanent_id" class="btn btn-primary">거르기</button>
-      <div class="row">
+      <div class="row content">
 	<div class="col" v-html="content.data">
 	</div>
       </div>
@@ -162,6 +162,10 @@ div.data {
   padding-top: 2rem;
   background-color: white;
   padding-bottom: 2rem;
+}
+
+div.content {
+  padding-top: 2rem;
 }
 
 * /deep/ img {
