@@ -54,9 +54,4 @@ hr {
   border: 0;
   margin: 0;
 }
-
-div.main {
-  background-color: #CFCFCF;
-}
-
 </style>
