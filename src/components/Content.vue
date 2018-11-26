@@ -9,14 +9,14 @@
     <div :id="content.permanent_id" class="data container section" v-if="content" :class="{ gray: index%2 == 0 }" :ref="content.permanent_id">
       <h3>{{ content.title }}</h3>
       <button class="btn btn-primary">와드</button>
-      <button v-on:click="link" :data-pid="content.permanent_id" class="btn btn-primary">링크 복사</button>
+      <button v-on:click="link" class="btn btn-primary">링크 복사</button>
       <button v-on:click="next" :data-pid="content.permanent_id" class="btn btn-primary">거르기</button>
       <div class="row content">
 	<div class="col" v-html="content.data">
 	</div>
       </div>
       <button class="btn btn-primary">와드</button>
-      <button v-on:click="link" :data-pid="content.permanent_id" class="btn btn-primary">링크 복사</button>
+      <button v-on:click="link" class="btn btn-primary">링크 복사</button>
       <button v-on:click="next" :data-pid="content.permanent_id" class="btn btn-primary">거르기</button>
 
       <!-- <div class="comments">
@@ -116,18 +116,18 @@ export default {
         el.style.left = '-9999px';
         document.body.appendChild(el);
         if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
-          var editable = el.contentEditable;
-          var readOnly = el.readOnly;
-          el.contentEditable = true;
-          el.readOnly = false;
+          // var editable = el.contentEditable;
+          // var readOnly = el.readOnly;
+          // el.contentEditable = true;
+          // el.readOnly = false;
           var range = document.createRange();
           range.selectNodeContents(el);
           var sel = window.getSelection();
           sel.removeAllRanges();
           sel.addRange(range);
           el.setSelectionRange(0, 999999);
-          el.contentEditable = editable;
-          el.readOnly = readOnly;
+          // el.contentEditable = editable;
+          // el.readOnly = readOnly;
         } else {
           el.select();
         }
@@ -135,7 +135,7 @@ export default {
         document.body.removeChild(el);
       }
 
-      copyText(window.location.href + event.currentTarget.getAttribute('data-pid'))
+      copyText(window.location.href + this.pid)
     },
 
     next(event) {
