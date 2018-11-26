@@ -38,10 +38,6 @@ export default {
     loadMore() {
       contentStore.dispatch('fetchRandom')
       this.minHeight = window.innerHeight - $('nav#header').height()
-    },
-
-    track() {
-      this.$ga.page('/contents')
     }
   },
 };

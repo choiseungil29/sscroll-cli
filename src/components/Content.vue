@@ -115,7 +115,22 @@ export default {
         el.style.position = 'absolute';
         el.style.left = '-9999px';
         document.body.appendChild(el);
-        el.select();
+        if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
+          var editable = el.contentEditable;
+          var readOnly = el.readOnly;
+          el.contentEditable = true;
+          el.readOnly = false;
+          var range = document.createRange();
+          range.selectNodeContents(el);
+          var sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(range);
+          el.setSelectionRange(0, 999999);
+          el.contentEditable = editable;
+          el.readOnly = readOnly;
+        } else {
+          el.select();
+        }
         document.execCommand('copy');
         document.body.removeChild(el);
       }
@@ -140,10 +155,6 @@ export default {
 	setTimeout(this.next, 500)
 	// 여기에 vibrate API 적용할수 있으면 손맛좋을듯
       } */
-    },
-
-    track() {
-      this.$ga.page('/contents/' + this.pid)
     }
   }
 }

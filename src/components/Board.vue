@@ -37,9 +37,6 @@ export default {
   },
 
   methods: {
-    track() {
-      this.$ga.page('/board/' + this.$route.params.bid)
-    }
   }
 }
 </script>

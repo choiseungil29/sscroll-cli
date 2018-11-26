@@ -38,9 +38,6 @@ export default {
   },
 
   methods: {
-    track() {
-      this.$ga.page('/boards')
-    }
   }
 }
 </script>
