@@ -178,8 +178,8 @@ export default {
 
     pageChange(currentPage) {
       if (currentPage == 1) {
-        window.navigator.vibrate([200])
         setTimeout(this.next, 500)
+        window.navigator.vibrate([200])
       }
     }
   }
