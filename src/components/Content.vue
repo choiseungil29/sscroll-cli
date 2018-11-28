@@ -115,11 +115,7 @@ export default {
 
   computed: {
     content() {
-      let data = contentStore.getters.byId(this.pid)
-      if (data == null) {
-        return []
-      }
-      return data
+      return contentStore.getters.byId(this.pid)
     },
 
     index() {
@@ -127,9 +123,6 @@ export default {
     },
 
     comments() {
-      if (this.content.comments == null) {
-        return []
-      }
       return this.content.comments.slice(0, this.comment_length)
     }
   },
