@@ -127,7 +127,7 @@ export default {
     },
 
     comments() {
-      if (this.content == null) {
+      if (this.content.comments == null) {
         return []
       }
       return this.content.comments.slice(0, this.comment_length)
