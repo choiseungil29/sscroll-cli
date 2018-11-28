@@ -127,6 +127,9 @@ export default {
     },
 
     comments() {
+      if (this.content == null) {
+        return []
+      }
       return this.content.comments.slice(0, this.comment_length)
     }
   },
