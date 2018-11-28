@@ -115,7 +115,11 @@ export default {
 
   computed: {
     content() {
-      return contentStore.getters.byId(this.pid)
+      let data = contentStore.getters.byId(this.pid)
+      if (data == null) {
+        return []
+      }
+      return data
     },
 
     index() {
@@ -164,8 +168,11 @@ export default {
     },
 
     loadComment(event) {
-      console.log('hi')
-      this.comment_length += 5
+      if (this.comments.length < this.comment_length) {
+        alert('더이상 불러올 댓글이 없습니다!')
+      } else {
+        this.comment_length += 5
+      }
     },
 
     pageChange(currentPage) {
