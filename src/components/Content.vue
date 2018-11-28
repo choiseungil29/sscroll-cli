@@ -82,7 +82,12 @@ export default {
   },
 
   mounted() {
-    $(window).scroll((event) => { if (this.viewed) {
+    $(window).scroll((event) => {
+      if (this.viewed) {
+        return
+      }
+
+      if (this.$refs[this.pid] == null) {
         return
       }
       let y = event.currentTarget.scrollY
@@ -174,15 +179,8 @@ export default {
     pageChange(currentPage) {
       if (currentPage == 1) {
         window.navigator.vibrate([200])
-	setTimeout(this.next, 500)
+        setTimeout(this.next, 500)
       }
-      /* if (currentPage == 0) {
-	this.ward(null)
-      } else if (currentPage == 1) {
-	// window.navigator.vibrate(200);
-	setTimeout(this.next, 500)
-	// 여기에 vibrate API 적용할수 있으면 손맛좋을듯
-      } */
     }
   }
 }
