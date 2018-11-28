@@ -35,6 +35,7 @@ const contentStore = new Vuex.Store({
         if (state.contents.find(c => c.permanent_id == content.permanent_id)) {
           continue
         }
+        console.log(content)
         state.contents.push(content)
       }
     },

@@ -1,12 +1,11 @@
-<template>
-  <carousel :per-page="1" :pagination-size="0" :center-mode="true" :min-swipe-distance="50" @pageChange="pageChange" :mouseDrag="mouseDrag" ref="carousel">
+<template> <carousel :per-page="1" :pagination-size="0" :center-mode="true" :min-swipe-distance="50" @pageChange="pageChange" :mouseDrag="mouseDrag" ref="carousel">
     <!-- <slide>
       <div class="data container section" :class="{ gray: index%2 == 0 }">
 	와드(예정)
       </div>
     </slide> -->
     <slide>
-    <div :id="content.permanent_id" class="data container section" v-if="content" :class="{ gray: index%2 == 0 }" :ref="content.permanent_id">
+    <div :id="content.permanent_id" class="data container section" v-if="content" ref="content.permanent_id">
       <h3>{{ content.title }}</h3>
       <button class="btn btn-primary">와드</button>
       <button v-on:click="link" class="btn btn-primary">링크 복사</button>
@@ -19,6 +18,21 @@
       <button v-on:click="link" class="btn btn-primary">링크 복사</button>
       <button v-on:click="next" :data-pid="content.permanent_id" class="btn btn-primary">거르기</button>
 
+      <div class="comments" v-if="content.comments.length > 0">
+        <table class="table table-hover table-bordered">
+          <thead>
+            <tr>
+              <th scope="col" style="text-align: left;">댓글</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="comment in content.comments">
+              <th scope="row" style="text-align: left;">{{ comment.data }}</th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
       <!-- <div class="comments">
 	<div class="input-group">
 	  <input id="comment" type="text" class="form-control" placeholder="댓글">
@@ -30,7 +44,7 @@
     </div>
     </slide>
     <slide>
-      <div class="data container section" :class="{ gray: index%2 == 0 }">
+      <div class="data container section">
 	게시물 넘기기
       </div>
     </slide>
@@ -61,8 +75,7 @@ export default {
   },
 
   mounted() {
-    $(window).scroll((event) => {
-      if (this.viewed) {
+    $(window).scroll((event) => { if (this.viewed) {
         return
       }
       let y = event.currentTarget.scrollY
@@ -88,7 +101,8 @@ export default {
   data() {
     return {
       viewed: false,
-      mouseDrag: true
+      mouseDrag: true,
+      comments: []
     }
   },
 
@@ -116,18 +130,12 @@ export default {
         el.style.left = '-9999px';
         document.body.appendChild(el);
         if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
-          // var editable = el.contentEditable;
-          // var readOnly = el.readOnly;
-          // el.contentEditable = true;
-          // el.readOnly = false;
           var range = document.createRange();
           range.selectNodeContents(el);
           var sel = window.getSelection();
           sel.removeAllRanges();
           sel.addRange(range);
           el.setSelectionRange(0, 999999);
-          // el.contentEditable = editable;
-          // el.readOnly = readOnly;
         } else {
           el.select();
         }
@@ -146,6 +154,7 @@ export default {
 
     pageChange(currentPage) {
       if (currentPage == 1) {
+        window.navigator.vibrate([200])
 	setTimeout(this.next, 500)
       }
       /* if (currentPage == 0) {
@@ -177,6 +186,10 @@ div.data {
 
 div.content {
   padding-top: 2rem;
+}
+
+div.comments {
+  margin-top: 2rem;
 }
 
 * /deep/ img {
