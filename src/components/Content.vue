@@ -26,9 +26,16 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="comment in content.comments">
+            <!-- <tr v-for="comment in content.comments">
+              <th scope="row" style="text-align: left;">{{ comment.data }}</th>
+            </tr> -->
+            <tr v-for="comment in comments">
               <th scope="row" style="text-align: left;">{{ comment.data }}</th>
             </tr>
+            <tr>
+              <th style="padding: 0 0 0 0;"><button type="button" class="btn btn-primary" style="width: 100%; height: 100%; padding: 0 0 0 0; margin: 0 0 0 0; border-top-left-radius: 0; border-top-right-radius: 0;" @click="loadComment">댓글 더 보기</button></th>
+            </tr>
+
           </tbody>
         </table>
       </div>
@@ -102,7 +109,7 @@ export default {
     return {
       viewed: false,
       mouseDrag: true,
-      comments: []
+      comment_length: 5
     }
   },
 
@@ -113,6 +120,10 @@ export default {
 
     index() {
       return contentStore.getters.index(this.pid)
+    },
+
+    comments() {
+      return this.content.comments.slice(0, this.comment_length)
     }
   },
 
@@ -150,6 +161,11 @@ export default {
       VueScrollTo.scrollTo('#' + CSS.escape(this.pid), 0)
       this.viewed = true
       contentStore.dispatch('removeByPid', this.pid)
+    },
+
+    loadComment(event) {
+      console.log('hi')
+      this.comment_length += 5
     },
 
     pageChange(currentPage) {
