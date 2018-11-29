@@ -33,9 +33,8 @@
               <th scope="row" style="text-align: left;">{{ comment.data }}</th>
             </tr>
             <tr>
-              <th style="padding: 0 0 0 0;"><button type="button" class="btn btn-primary" style="width: 100%; height: 100%; padding: 0 0 0 0; margin: 0 0 0 0; border-top-left-radius: 0; border-top-right-radius: 0;" @click="loadComment">댓글 더 보기</button></th>
-            </tr>
-
+              <td style="padding: 0 0 0 0;"><button type="button" class="btn btn-primary" style="width: 100%; height: 100%; min-height: 3rem; padding: 0 0 0 0; margin: 0 0 0 0; border-top-left-radius: 0; border-top-right-radius: 0;" @click="loadComment">댓글 더 보기</button></td>
+              </tr>
           </tbody>
         </table>
       </div>
