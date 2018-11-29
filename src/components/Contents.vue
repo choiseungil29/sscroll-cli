@@ -32,6 +32,9 @@ export default {
   },
 
   created() {
+    if (this.$route.params.pid) {
+      contentStore.dispatch('fetchById', this.$route.params.pid)
+    }
   },
 
   methods: {

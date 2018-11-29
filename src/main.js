@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueAnalytics from 'vue-analytics'
 import VueRouter from 'vue-router'
 import App from './App'
-import Content from './components/Content'
 import Contents from './components/Contents'
 import Boards from './components/Boards'
 import Board from './components/Board'
@@ -10,6 +9,8 @@ import Login from './components/Login'
 import Signup from './components/Signup'
 import axios from 'axios'
 import infiniteScroll from 'vue-infinite-scroll'
+
+import contentStore from './store/content'
 
 Vue.config.productionTip = false
 
@@ -25,12 +26,13 @@ Vue.use(infiniteScroll)
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/', name: 'main', component: Contents },
+  { path: '/', name: 'main', component: Contents }, /*, beforeEnter: (to, from, next) => { contentStore.dispatch('reset'); next(); }  */
   { path: '/board', component: Boards },
   { path: '/board/:bid', name: 'board', component: Board },
   { path: '/login', name: 'login', component: Login },
   { path: '/signup', name: 'signup', component: Signup },
-  { path: '/:pid', name: 'content', component: Content, props: true }
+  { path: '/:pid', name: 'content', component: Contents }
+  // { path: '/:pid', name: 'content', component: Content, props: true }
 ]
 
 const router = new VueRouter({

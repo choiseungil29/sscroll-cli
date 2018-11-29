@@ -14,8 +14,7 @@ const contentStore = new Vuex.Store({
 
     /*
      * pid로 object를 찾아줌.
-     */
-    byId: (state) => (pid) => {
+     */ byId: (state) => (pid) => {
       let content = state.contents.find(c => c.permanent_id == pid)
       return content
     },
@@ -52,6 +51,10 @@ const contentStore = new Vuex.Store({
       if (content != null) {
         state.contents.splice(state.contents.indexOf(content), 1)
       }
+    },
+
+    reset (state) {
+      state.contents = []
     }
   },
 
@@ -85,6 +88,11 @@ const contentStore = new Vuex.Store({
         }).catch(err => {
           console.log(err)
         })
+    },
+
+    reset (context) {
+      context.commit('reset')
+      context.dispatch('fetchRandom')
     },
 
     removeByPid (context, pid) {
