@@ -48,7 +48,7 @@ nav#header {
   transition: all 0.5s;
 }
 
-nav#header.scrollUp {
+/*nav#header.scrollUp {
   trasnform: translateY(-100%);
-}
+}*/
 </style>
