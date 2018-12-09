@@ -29,6 +29,10 @@ const contentStore = new Vuex.Store({
     },
 
     recent: (state) => () => {
+      /* if (user.getters.isLogin()) {
+	console.log('login')
+      } */
+
       let contents = JSON.parse(localStorage.getItem('views') || JSON.stringify({ 'views': [] })).views.reverse()
       return contents
     }
@@ -96,13 +100,13 @@ const contentStore = new Vuex.Store({
 
     viewContent (context, pid) {
       console.log(user.getters.isLogin())
-      if (!user.getters.isLogin()) {
-        let item = context.getters.byId(pid)
-        let views = JSON.parse(localStorage.getItem('views') || JSON.stringify({ 'views': [] }))
-        views.views.push(item)
-        localStorage.setItem('views', JSON.stringify(views))
-        return
-      }
+      // if (!user.getters.isLogin()) {
+      let item = context.getters.byId(pid)
+      let views = JSON.parse(localStorage.getItem('views') || JSON.stringify({ 'views': [] }))
+      views.views.push(item)
+      localStorage.setItem('views', JSON.stringify(views))
+      return
+      // }
 
       axios.get('/api/view', { params: { pid: pid } })
         .then(res => {

@@ -1,7 +1,8 @@
 <template>
-  <div>
+  <div style="height: 100%;">
     <div class="main">
       <div class="data">
+	<h3>자유게시판</h3>
         <table class="table table-hover table-bordered">
           <thead>
             <tr>
@@ -43,19 +44,29 @@ export default {
 </script>
 
 <style scoped>
-
-table {
-  background-color: white;
-
-}
-
 div.main {
   text-align: center;
 }
 
 div.data {
+  background-color: white;
   display: inline-block;
   width: 100%;
   max-width: 1080px;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
+
+h3 {
+  color: #25282b;
+  text-align: left;
+  margin-left: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+div {
+  height: 100%;
+}
+
 </style>
