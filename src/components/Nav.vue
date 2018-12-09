@@ -39,6 +39,7 @@ export default {
 
 <style scoped>
 nav#header {
+  position: fixed;
   background: #fff;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
   top: 0;
