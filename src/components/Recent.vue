@@ -5,14 +5,14 @@
         <table class="table table-hover table-bordered">
           <thead>
             <tr>
-              <th scope="col" style="width: 17%;">번호</th>
               <th scope="col" style="text-align: left;">제목</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="board in boards">
-              <th scope="row">{{ board.id }}</th>
-              <th scope="row" style="text-align: left;"><router-link :to="{ name: 'board', params: { bid: board.id } }">{{ board.title }}</router-link></th>
+            <tr v-for="content in contents" :key="content.pid">
+              <th scope="row" style="text-align: left;">
+                <router-link :to="{ name: 'content', params: { pid: content.permanent_id } }">{{ content.title }}</router-link>
+              </th>
             </tr>
           </tbody>
         </table>
@@ -22,30 +22,29 @@
 </template>
 
 <script>
-import boardStore from '../store/board'
+import contentStore from "../store/content"
 
 export default {
-  name: 'Boards',
+  name: 'Recent',
 
   created() {
-    boardStore.dispatch('fetchAll')
+    this.contents = contentStore.getters.recent()
+  },
+
+  computed: {
   },
 
   data() {
     return {
-      boards: boardStore.state.boards
+      contents: []
     }
-  },
-
-  methods: {
   }
 }
 </script>
 
 <style scoped>
-
 table {
-  background-color: white;
+  background-color: white
 
 }
 

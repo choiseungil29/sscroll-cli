@@ -1,18 +1,19 @@
-<template> <carousel :per-page="1" :pagination-size="0" :center-mode="true" :min-swipe-distance="50" @pageChange="pageChange" :mouseDrag="mouseDrag" ref="carousel">
+<template> 
+<carousel :per-page="1" :pagination-size="0" :center-mode="true" :min-swipe-distance="50" @pageChange="pageChange" :mouseDrag="mouseDrag" ref="carousel">
     <!-- <slide>
       <div class="data container section" :class="{ gray: index%2 == 0 }">
 	와드(예정)
       </div>
     </slide> -->
-    <slide>
-    <div :id="content.permanent_id" class="data container section" v-if="content" ref="content.permanent_id">
+  <slide>
+    <div :id="content.permanent_id" class="data container section" v-if="content" ref="contentBox">
       <h3>{{ content.title }}</h3>
       <!-- <button class="btn btn-primary">와드</button> -->
       <button v-on:click="link" class="btn btn-primary">링크 복사</button>
       <button v-on:click="next" :data-pid="content.permanent_id" class="btn btn-primary">거르기</button>
       <div class="row content">
-	<div class="col" v-html="content.data">
-	</div>
+        <div class="col" v-html="content.data">
+        </div>
       </div>
       <!-- <button class="btn btn-primary">와드</button> -->
       <button v-on:click="link" class="btn btn-primary">링크 복사</button>
@@ -86,15 +87,15 @@ export default {
         return
       }
 
-      if (this.$refs[this.pid] == null) {
+      if (this.$refs.contentBox == null) {
         return
       }
+
       let y = event.currentTarget.scrollY
-      let clientRect = this.$refs[this.pid].getBoundingClientRect()
+      let clientRect = this.$refs.contentBox.getBoundingClientRect()
       if (-clientRect.y > clientRect.height) {
         this.viewed = true
         contentStore.dispatch('viewContent', this.pid)
-        // this.pid를
       }
     })
 
@@ -178,7 +179,6 @@ export default {
     pageChange(currentPage) {
       if (currentPage == 1) {
         setTimeout(this.next, 500)
-        window.navigator.vibrate([200])
       }
     }
   }

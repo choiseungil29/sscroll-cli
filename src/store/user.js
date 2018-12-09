@@ -14,6 +14,9 @@ const user = new Vuex.Store({
 
   getters: {
     isLogin: (state) => () => {
+      if (process.env.NODE_ENV == 'development') {
+        return false
+      }
       return state.email != null
     }
   },

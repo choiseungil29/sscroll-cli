@@ -8,9 +8,9 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="nav navbar-nav ml-auto">
         <li v-if='isLogin === false'><router-link to='/login' class="nav-link">로그인</router-link></li>
-        <!-- <li><router-link to='/recent' class="nav-link">최근 본 게시물</router-link></li>
-        <li v-if='isLogin === true'><router-link to='/ward' class="nav-link">와드</router-link></li>
-        <li><router-link to='/board' class="nav-link">자유게시판</router-link></li> -->
+        <li><router-link to='/recent' class="nav-link">최근 본 게시물</router-link></li>
+        <!-- <li v-if='isLogin === true'><router-link to='/ward' class="nav-link">와드</router-link></li> -->
+        <li><router-link to='/board' class="nav-link">자유게시판</router-link></li>
       </ul>
     </div>
   </nav>

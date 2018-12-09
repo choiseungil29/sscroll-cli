@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import axios from 'axios'
+import user from './user'
 
 Vue.use(Vuex)
 
@@ -11,10 +12,10 @@ const contentStore = new Vuex.Store({
   },
 
   getters: {
-
     /*
      * pid로 object를 찾아줌.
-     */ byId: (state) => (pid) => {
+     */
+    byId: (state) => (pid) => {
       let content = state.contents.find(c => c.permanent_id == pid)
       return content
     },
@@ -25,6 +26,11 @@ const contentStore = new Vuex.Store({
     index: (state) => (pid) => {
       let content = state.contents.find(c => c.permanent_id == pid)
       return state.contents.indexOf(content)
+    },
+
+    recent: (state) => () => {
+      let contents = JSON.parse(localStorage.getItem('views') || JSON.stringify({ 'views': [] })).views.reverse()
+      return contents
     }
   },
 
@@ -60,7 +66,14 @@ const contentStore = new Vuex.Store({
 
   actions: {
     fetchRandom (context) {
-      axios.get(`/api/fill`)
+      let views = JSON.parse(localStorage.getItem('views') || JSON.stringify({ 'views': [] }))
+      console.log(views)
+      let convertViews = { 'views': [] }
+      for (let item of views.views) {
+        convertViews.views.push(item.permanent_id)
+      }
+      convertViews = JSON.stringify(convertViews)
+      axios.get(`/api/fill`, { params: { 'views': convertViews } })
         .then((res) => {
           console.log('fill array')
           context.commit('fetchArray', res.data)
@@ -82,6 +95,15 @@ const contentStore = new Vuex.Store({
     },
 
     viewContent (context, pid) {
+      console.log(user.getters.isLogin())
+      if (!user.getters.isLogin()) {
+        let item = context.getters.byId(pid)
+        let views = JSON.parse(localStorage.getItem('views') || JSON.stringify({ 'views': [] }))
+        views.views.push(item)
+        localStorage.setItem('views', JSON.stringify(views))
+        return
+      }
+
       axios.get('/api/view', { params: { pid: pid } })
         .then(res => {
           console.log(res)
@@ -96,12 +118,10 @@ const contentStore = new Vuex.Store({
     },
 
     removeByPid (context, pid) {
-      context.commit('removeByPid', pid)
       context.dispatch('viewContent', pid)
+      context.commit('removeByPid', pid)
       console.log(context.state.contents.length)
       if (context.state.contents.length < 3) {
-        console.log('hi!')
-        console.log(context)
         context.dispatch('fetchRandom')
       }
     }
