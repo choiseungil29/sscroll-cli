@@ -163,7 +163,7 @@ export default {
     },
 
     next(event) {
-      VueScrollTo.scrollTo('#' + CSS.escape(this.pid), 0)
+      VueScrollTo.scrollTo('#' + CSS.escape(this.pid), 0, { offset: -56 })
       this.viewed = true
       contentStore.dispatch('removeByPid', this.pid)
     },
