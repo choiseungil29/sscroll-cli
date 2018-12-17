@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueAnalytics from 'vue-analytics'
+import VueHead from 'vue-head'
 import VueRouter from 'vue-router'
 import App from './App'
 import Contents from './components/Contents'
@@ -23,6 +24,7 @@ console.log(process.env.NODE_ENV)
 
 Vue.use(infiniteScroll)
 Vue.use(VueRouter)
+Vue.use(VueHead)
 
 const routes = [
   { path: '/', name: 'main', component: Contents }, /*, beforeEnter: (to, from, next) => { contentStore.dispatch('reset'); next(); }  */
