@@ -30,7 +30,7 @@ const contentStore = new Vuex.Store({
 
     recent: (state) => () => {
       /* if (user.getters.isLogin()) {
-	console.log('login')
+        console.log('login')
       } */
 
       let contents = JSON.parse(localStorage.getItem('views') || JSON.stringify({ 'views': [] })).views.reverse()
@@ -105,7 +105,6 @@ const contentStore = new Vuex.Store({
       let views = JSON.parse(localStorage.getItem('views') || JSON.stringify({ 'views': [] }))
       views.views.push(item)
       localStorage.setItem('views', JSON.stringify(views))
-      return
       // }
 
       axios.get('/api/view', { params: { pid: pid } })

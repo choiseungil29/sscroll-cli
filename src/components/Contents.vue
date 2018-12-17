@@ -19,6 +19,18 @@ export default {
     Content
   },
 
+  head: {
+    // To use "this" in the component, it is necessary to return the object through a function
+    title: function () {
+      return {
+        inner: '메인'
+      }
+    },
+    meta: [
+      { name: 'description', content: '쓰크롤 메인', id: 'desc' }
+    ]
+  },
+
   data() {
     return {
       minHeight: window.innerHeight
