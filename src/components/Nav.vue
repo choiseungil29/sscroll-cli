@@ -1,6 +1,6 @@
 <template>
   <nav id="header" class="navbar bg-primary navbar-dark sticky-top navbar-expand-lg">
-    <router-link to='/' class="navbar-brand" @click.native="reset"><span >쓰크롤</span></router-link>
+    <router-link to='/' class="navbar-brand" @click.native="reset"><span >쓰끄롤</span></router-link>
     <!-- <a class="navbar-brand" href="/">쓰크롤</a> -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
