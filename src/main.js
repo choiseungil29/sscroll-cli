@@ -3,12 +3,6 @@ import VueAnalytics from 'vue-analytics'
 import VueHead from 'vue-head'
 import VueRouter from 'vue-router'
 import App from './App'
-import Contents from './components/Contents'
-import Boards from './components/Boards'
-import Board from './components/Board'
-import Login from './components/Login'
-import Recent from './components/Recent'
-import Signup from './components/Signup'
 import axios from 'axios'
 import infiniteScroll from 'vue-infinite-scroll'
 
@@ -26,14 +20,18 @@ Vue.use(infiniteScroll)
 Vue.use(VueRouter)
 Vue.use(VueHead)
 
+function loadView(view) {
+  return () => import(/* webpackChunkName: "view-[request]" */ `./components/${view}.vue`)
+}
+
 const routes = [
-  { path: '/', name: 'main', component: Contents }, /*, beforeEnter: (to, from, next) => { contentStore.dispatch('reset'); next(); }  */
-  { path: '/board', component: Boards },
-  { path: '/login', name: 'login', component: Login },
-  { path: '/signup', name: 'signup', component: Signup },
-  { path: '/recent', component: Recent },
-  { path: '/board/:bid', name: 'board', component: Board },
-  { path: '/:pid', name: 'content', component: Contents }
+  { path: '/', name: 'main', component: loadView('Contents') }, /*, beforeEnter: (to, from, next) => { contentStore.dispatch('reset'); next(); }  */
+  { path: '/board', component: loadView('Boards') },
+  { path: '/login', name: 'login', component: loadView('Login') },
+  { path: '/signup', name: 'signup', component: loadView('Signup') },
+  { path: '/recent', component: loadView('Recent') },
+  { path: '/board/:bid', name: 'board', component: loadView('Board') },
+  { path: '/:pid', name: 'content', component: loadView('Contents') }
   // { path: '/:pid', name: 'content', component: Content, props: true }
 ]
 
