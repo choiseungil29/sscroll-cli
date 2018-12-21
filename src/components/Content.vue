@@ -193,7 +193,7 @@ button#ward {
 
 div.data {
   width: 100vw;
-  max-width: 1080px;
+  max-width: 800px;
   height: 100%;
   padding-top: 2rem;
   background-color: white;
