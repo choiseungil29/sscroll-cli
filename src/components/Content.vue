@@ -38,7 +38,7 @@
               </tr>
           </tbody>
         </table>
-        <div id="ad">
+        <div id="ad" style="display: flex; justify-content: center;">
           <iframe width="320" height="100" allowtransparency="true" src="http://mtab.clickmon.co.kr/pop/wp_m_320_100.php?PopAd=CM_M_1003067%7C%5E%7CCM_A_1049535%7C%5E%7CAdver_M_1046207&mon_rf=REFERRER_URL" frameborder="0" scrolling="no"></iframe>
         </div>
       </div>
@@ -228,7 +228,7 @@ div.comments {
   height: auto;
 }
 
-* /deep/ iframe {
+* /deep/ .content iframe {
   max-width: 100%;
   width: 100%;
 }
