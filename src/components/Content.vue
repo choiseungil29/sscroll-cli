@@ -85,10 +85,10 @@ export default {
     var filter = "win16|win32|win64|mac|macintel";
     if ( navigator.platform ) {
       if ( filter.indexOf( navigator.platform.toLowerCase() ) < 0 ) {
-        $('#ad').appendChild('<iframe width="320" height="100" allowtransparency="true" src="http://mtab.clickmon.co.kr/pop/wp_m_320_100.php?PopAd=CM_M_1003067%7C%5E%7CCM_A_1049535%7C%5E%7CAdver_M_1046207&mon_rf=REFERRER_URL" frameborder="0" scrolling="no"></iframe>')
+        $(`div.${this.pid} #ad`).appendChild('<iframe width="320" height="100" allowtransparency="true" src="http://mtab.clickmon.co.kr/pop/wp_m_320_100.php?PopAd=CM_M_1003067%7C%5E%7CCM_A_1049535%7C%5E%7CAdver_M_1046207&mon_rf=REFERRER_URL" frameborder="0" scrolling="no"></iframe>')
         console.log('mobile');
       } else {
-        $('#ad').append('<iframe width="728" height="90" allowtransparency="true" src="http://tab2.clickmon.co.kr/pop/wp_ad_728.php?PopAd=CM_M_1003067%7C%5E%7CCM_A_1049535%7C%5E%7CAdver_M_1046207&mon_rf=REFERRER_URL" frameborder="0" scrolling="no"></iframe>')
+        $(`div.${this.pid} #ad`).append('<iframe width="728" height="90" allowtransparency="true" src="http://tab2.clickmon.co.kr/pop/wp_ad_728.php?PopAd=CM_M_1003067%7C%5E%7CCM_A_1049535%7C%5E%7CAdver_M_1046207&mon_rf=REFERRER_URL" frameborder="0" scrolling="no"></iframe>')
         console.log('desktop');
       } 
     }
