@@ -118,7 +118,7 @@ const contentStore = new Vuex.Store({
     reset (context) {
       /* context.commit('reset')
       context.dispatch('fetchRandom') */
-      window.reload();
+      location.reload();
     },
 
     removeByPid (context, pid) {
