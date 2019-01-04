@@ -20,6 +20,9 @@
         </div>
       </div>
       <!-- <button class="btn btn-primary">와드</button> -->
+      <div style="display: flex; justify-content: center;">
+        <iframe class="ad" :width="this.width" :height="this.height" allowtransparency="true" :src="this.source" frameborder="0" scrolling="no"></iframe>
+      </div>
       <button v-on:click="link" class="btn btn-primary">링크 복사</button>
       <button v-on:click="next" :data-pid="content.permanent_id" class="btn btn-primary">거르기</button>
 
@@ -42,9 +45,7 @@
               </tr>
           </tbody>
         </table>
-        <div style="display: flex; justify-content: center;">
-          <iframe class="ad" :width="this.width" :height="this.height" allowtransparency="true" :src="this.source" frameborder="0" scrolling="no"></iframe>
-        </div>
+        
         <div style="display: flex; justify-content: center;">
           <iframe class="ad" :width="this.width" :height="this.height" allowtransparency="true" :src="this.source" frameborder="0" scrolling="no"></iframe>
         </div>
