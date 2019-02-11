@@ -33,7 +33,8 @@ export default {
 
   data() {
     return {
-      minHeight: window.innerHeight
+      minHeight: window.innerHeight,
+      init: false
     }
   },
 
@@ -51,8 +52,12 @@ export default {
 
   methods: {
     loadMore() {
-      contentStore.dispatch('fetchRandom')
-      this.minHeight = window.innerHeight - $('nav#header').height()
+      if (this.init === false) {
+        contentStore.dispatch('fetchRandom')
+        this.minHeight = window.innerHeight - $('nav#header').height()
+      } else {
+        location.reload();
+      }
     }
   },
 };

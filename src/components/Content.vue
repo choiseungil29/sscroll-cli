@@ -8,7 +8,12 @@
   <slide>
     <div :id="content.permanent_id" class="data container section" v-if="content" ref="contentBox">
       <div style="display: flex; justify-content: center;">
-        <iframe class="ad" :width="this.width" :height="this.height" allowtransparency="true" :src="this.source" frameborder="0" scrolling="no"></iframe>
+	<ins class="kakao_ad_area" style="display:none;" 
+	  :data-ad-unit    = "this.adfit_source" 
+	  :data-ad-width   = "this.width" 
+	  :data-ad-height  = "this.height"></ins> 
+	<div v-el:scriptHolder></div>
+	<!-- <iframe class="ad" :width="this.width" :height="this.height" allowtransparency="true" :src="this.source" frameborder="0" scrolling="no"></iframe> -->
       </div>
 
       <h3>{{ content.title }}</h3>
@@ -96,18 +101,31 @@ export default {
       if ( filter.indexOf( navigator.platform.toLowerCase() ) < 0 ) {
         this.width = 320;
         this.height = 100;
-        this.source = 'http://mtab.clickmon.co.kr/pop/wp_m_320_100.php?PopAd=CM_M_1003067%7C%5E%7CCM_A_1049535%7C%5E%7CAdver_M_1046207&mon_rf=REFERRER_URL'
+	this.adfit_source = 'DAN-1jy4xgkqsrxh4'
+        this.source = 'https://mtab.clickmon.co.kr/pop/wp_m_320_100.php?PopAd=CM_M_1003067%7C%5E%7CCM_A_1049535%7C%5E%7CAdver_M_1046207&mon_rf=REFERRER_URL'
         console.log('mobile');
       } else {
         this.width = 728;
         this.height = 90;
-        this.source = 'http://tab2.clickmon.co.kr/pop/wp_ad_728.php?PopAd=CM_M_1003067%7C%5E%7CCM_A_1049535%7C%5E%7CAdver_M_1046207&mon_rf=REFERRER_URL'
+	this.adfit_source = 'DAN-vf6ea3gh500z'
+        this.source = 'https://tab2.clickmon.co.kr/pop/wp_ad_728.php?PopAd=CM_M_1003067%7C%5E%7CCM_A_1049535%7C%5E%7CAdver_M_1046207&mon_rf=REFERRER_URL'
         console.log('desktop');
       } 
     }
   },
 
   mounted() {
+
+    const v = this;
+    $(document).ready(function() {
+      let scriptEl = document.createElement('script');
+      scriptEl.setAttribute('src', '//t1.daumcdn.net/adfit/static/ad.min.js');
+      scriptEl.async = true;
+      document.head.appendChild(scriptEl);
+      document.body.appendChild(scriptEl);
+      console.log('하위');
+    });
+
     $(window).scroll((event) => {
       if (this.viewed) {
         return
@@ -142,6 +160,7 @@ export default {
       mouseDrag: true,
       comment_length: 5,
       source: '',
+      adfit_source: '',
       width: 0,
       height: 0
     }
