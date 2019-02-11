@@ -30,8 +30,9 @@ const routes = [
   { path: '/login', name: 'login', component: loadView('Login') },
   { path: '/signup', name: 'signup', component: loadView('Signup') },
   { path: '/recent', component: loadView('Recent') },
+  { path: '/one', name: 'one', component: loadView('Content') },
   { path: '/board/:bid', name: 'board', component: loadView('Board') },
-  { path: '/:pid', name: 'content', component: loadView('Contents') }
+  { path: '/:pid', name: 'content', component: loadView('Contents') },
   // { path: '/:pid', name: 'content', component: Content, props: true }
 ]
 
