@@ -1,77 +1,46 @@
 <template> 
-<carousel :per-page="1" :pagination-size="0" :center-mode="true" :min-swipe-distance="80" @pageChange="pageChange" :mouseDrag="mouseDrag" ref="carousel">
     <!-- <slide>
       <div class="data container section" :class="{ gray: index%2 == 0 }">
 	와드(예정)
       </div>
     </slide> -->
-  <slide>
-    <div :id="content.permanent_id" class="data container section" v-if="content" ref="contentBox">
-      <div style="display: flex; justify-content: center;">
-	<ins class="kakao_ad_area" style="display:none;" 
-	  :data-ad-unit    = "this.adfit_source" 
-	  :data-ad-width   = "this.width" 
-	  :data-ad-height  = "this.height"></ins> 
-	<div v-el:scriptHolder></div>
-	<!-- <iframe class="ad" :width="this.width" :height="this.height" allowtransparency="true" :src="this.source" frameborder="0" scrolling="no"></iframe> -->
+  <div :id="content.permanent_id" class="data container section" v-if="content" ref="contentBox">
+    <h3>{{ content.title }}</h3>
+    <!-- <button class="btn btn-primary">와드</button> -->
+    <button v-on:click="link" class="btn btn-primary">링크 복사</button>
+    <button v-on:click="next" :data-pid="content.permanent_id" class="btn btn-primary">거르기</button>
+    <div class="row content">
+      <div class="col" v-html="content.data">
       </div>
+    </div>
+    <!-- <button class="btn btn-primary">와드</button> -->
+    <div style="display: flex; justify-content: center; margin-bottom:20px;">
+      <iframe class="ad" :width="this.width" :height="this.height" allowtransparency="true" :src="this.source" frameborder="0" scrolling="no"></iframe>
+    </div>
+    <button v-on:click="link" class="btn btn-primary">링크 복사</button>
+    <button v-on:click="next" :data-pid="content.permanent_id" class="btn btn-primary">거르기</button>
 
-      <h3>{{ content.title }}</h3>
-      <!-- <button class="btn btn-primary">와드</button> -->
-      <button v-on:click="link" class="btn btn-primary">링크 복사</button>
-      <button v-on:click="next" :data-pid="content.permanent_id" class="btn btn-primary">거르기</button>
-      <div class="row content">
-        <div class="col" v-html="content.data">
-        </div>
-      </div>
-      <!-- <button class="btn btn-primary">와드</button> -->
+    <div class="comments">
+      <table class="table table-hover table-bordered">
+        <thead>
+          <tr>
+            <th scope="col" style="text-align: left;">댓글</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="comment in comments">
+            <th scope="row" style="text-align: left;" v-if="comment.data != ''">{{ comment.data }}</th>
+          </tr>
+          <tr>
+            <td style="padding: 0 0 0 0;"><button type="button" class="btn btn-primary" style="width: 100%; height: 100%; min-height: 3rem; padding: 0 0 0 0; margin: 0 0 0 0; border-top-left-radius: 0; border-top-right-radius: 0;" @click="loadComment">댓글 더 보기</button></td>
+          </tr>
+        </tbody>
+      </table>
       <div style="display: flex; justify-content: center;">
         <iframe class="ad" :width="this.width" :height="this.height" allowtransparency="true" :src="this.source" frameborder="0" scrolling="no"></iframe>
       </div>
-      <button v-on:click="link" class="btn btn-primary">링크 복사</button>
-      <button v-on:click="next" :data-pid="content.permanent_id" class="btn btn-primary">거르기</button>
-
-      <div class="comments">
-        <table class="table table-hover table-bordered">
-          <thead>
-            <tr>
-              <th scope="col" style="text-align: left;">댓글</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- <tr v-for="comment in content.comments">
-              <th scope="row" style="text-align: left;">{{ comment.data }}</th>
-            </tr> -->
-            <tr v-for="comment in comments">
-              <th scope="row" style="text-align: left;">{{ comment.data }}</th>
-            </tr>
-            <tr>
-              <td style="padding: 0 0 0 0;"><button type="button" class="btn btn-primary" style="width: 100%; height: 100%; min-height: 3rem; padding: 0 0 0 0; margin: 0 0 0 0; border-top-left-radius: 0; border-top-right-radius: 0;" @click="loadComment">댓글 더 보기</button></td>
-              </tr>
-          </tbody>
-        </table>
-        
-        <div style="display: flex; justify-content: center;">
-          <iframe class="ad" :width="this.width" :height="this.height" allowtransparency="true" :src="this.source" frameborder="0" scrolling="no"></iframe>
-        </div>
-      </div>
-
-      <!-- <div class="comments">
-	<div class="input-group">
-	  <input id="comment" type="text" class="form-control" placeholder="댓글">
-	  <span class="input-group-btn">
-	    <button id="addComment" class="btn btn-primary btn-block" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;" type="button">작성</button>
-	  </span>
-	</div>
-      </div> -->
     </div>
-    </slide>
-    <slide>
-      <div class="data container section">
-	게시물 넘기기
-      </div>
-    </slide>
-  </carousel>
+  </div>
 </template>
 
 <script>
@@ -117,15 +86,6 @@ export default {
   mounted() {
 
     const v = this;
-    $(document).ready(function() {
-      let scriptEl = document.createElement('script');
-      scriptEl.setAttribute('src', '//t1.daumcdn.net/adfit/static/ad.min.js');
-      scriptEl.async = true;
-      document.head.appendChild(scriptEl);
-      document.body.appendChild(scriptEl);
-      console.log('하위');
-    });
-
     $(window).scroll((event) => {
       if (this.viewed) {
         return

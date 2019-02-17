@@ -2,7 +2,7 @@
   <div style="height: 100%;">
     <div class="main">
       <div class="data">
-	<h3>자유게시판</h3>
+        <h3>자유게시판</h3>
         <table class="table table-hover table-bordered">
           <thead>
             <tr>

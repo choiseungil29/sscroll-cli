@@ -4,6 +4,8 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import user from './user'
 
+import _ from 'lodash'
+
 Vue.use(Vuex)
 
 const contentStore = new Vuex.Store({
@@ -74,10 +76,16 @@ const contentStore = new Vuex.Store({
       console.log(views)
       let convertViews = { 'views': [] }
       for (let item of views.views) {
+        if (item.permanent_id) {
+          let views = JSON.parse(localStorage.getItem('views') || JSON.stringify({ 'views': [] })).views
+          if (_.find(views, o => o.permanent_id === item.permanent_id)) {
+            continue
+          }
+        }
         convertViews.views.push(item.permanent_id)
       }
       convertViews = JSON.stringify(convertViews)
-      axios.get(`/api/fill`, { params: { 'views': convertViews } })
+      axios.get(`/api/fill`, { params: { 'views': [] } })
         .then((res) => {
           console.log('fill array')
           context.commit('fetchArray', res.data)
@@ -100,19 +108,10 @@ const contentStore = new Vuex.Store({
 
     viewContent (context, pid) {
       console.log(user.getters.isLogin())
-      // if (!user.getters.isLogin()) {
       let item = context.getters.byId(pid)
       let views = JSON.parse(localStorage.getItem('views') || JSON.stringify({ 'views': [] }))
       views.views.push(item)
       localStorage.setItem('views', JSON.stringify(views))
-      // }
-
-      axios.get('/api/view', { params: { pid: pid } })
-        .then(res => {
-          console.log(res)
-        }).catch(err => {
-          console.log(err)
-        })
     },
 
     reset (context) {

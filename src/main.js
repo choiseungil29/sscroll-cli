@@ -5,13 +5,15 @@ import VueRouter from 'vue-router'
 import App from './App'
 import axios from 'axios'
 import infiniteScroll from 'vue-infinite-scroll'
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
 
 Vue.config.productionTip = false
 
 if (process.env.NODE_ENV === 'production') {
   axios.defaults.baseURL = ''
 } else {
-  axios.defaults.baseURL = 'http://0.0.0.0:8000'
+  axios.defaults.baseURL = 'http://127.0.0.1:8000'
 }
 axios.defaults.withCredentials = true
 console.log(process.env.NODE_ENV)
@@ -19,6 +21,7 @@ console.log(process.env.NODE_ENV)
 Vue.use(infiniteScroll)
 Vue.use(VueRouter)
 Vue.use(VueHead)
+Vue.use(Vuetify)
 
 function loadView(view) {
   return () => import(/* webpackChunkName: "view-[request]" */ `./components/${view}.vue`)

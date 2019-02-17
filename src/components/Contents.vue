@@ -5,6 +5,7 @@
         <Content :pid="content.permanent_id" />
       </div>
     </div> 
+    <v-btn fixed dark fab bottom right color="pink" @click="next"><v-icon>angle-right</v-icon></v-btn>
   </div>
 </template>
 
@@ -20,7 +21,6 @@ export default {
   },
 
   head: {
-    // To use "this" in the component, it is necessary to return the object through a function
     title: function () {
       return {
         inner: '메인'
@@ -58,6 +58,10 @@ export default {
       } else {
         location.reload();
       }
+    },
+
+    next() {
+      console.log('hi')
     }
   },
 };
