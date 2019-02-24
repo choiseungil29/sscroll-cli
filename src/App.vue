@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%; height: 100%;">
     <Nav />
-    <router-view style="margin-top: 56px;"/>
+    <router-view/>
   </div>
 </template>
 

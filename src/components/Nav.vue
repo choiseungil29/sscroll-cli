@@ -1,19 +1,25 @@
 <template>
-  <nav id="header" class="navbar bg-primary navbar-dark sticky-top navbar-expand-lg">
+  <!-- <nav id="header" class="navbar bg-primary navbar-dark sticky-top navbar-expand-lg">
     <router-link to='/' class="navbar-brand" @click.native="reset"><span >쓰끄롤</span></router-link>
-    <!-- <a class="navbar-brand" href="/">쓰크롤</a> -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="nav navbar-nav ml-auto">
-        <!-- <li v-if='isLogin === false'><router-link to='/login' class="nav-link">로그인</router-link></li> -->
         <li><router-link to='/recent' class="nav-link">최근 본 게시물</router-link></li>
-        <!-- <li v-if='isLogin === true'><router-link to='/ward' class="nav-link">와드</router-link></li> -->
-        <!-- <li><router-link to='/board' class="nav-link">자유게시판</router-link></li> -->
       </ul>
     </div>
-  </nav>
+  </nav> -->
+  <el-menu
+    :default-active="1"
+    class="el-menu-demo"
+    mode="horizontal"
+    @select="handleSelect"
+    >
+    <el-menu-item index="1"><router-link to='/'><p style="font-size: 24px;">쓰끄롤</p></router-link></el-menu-item>
+    <el-menu-item index="2"><router-link to='/recent'>최근 본 게시물</router-link></el-menu-item>
+    <!-- <el-menu-item index="3"><a href="https://www.ele.me" target="_blank">Orders</a></el-menu-item> -->
+  </el-menu>
 </template>
 
 <script>
@@ -48,8 +54,4 @@ nav#header {
   z-index: 1021;
   transition: all 0.5s;
 }
-
-/*nav#header.scrollUp {
-  trasnform: translateY(-100%);
-}*/
 </style>

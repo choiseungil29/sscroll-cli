@@ -7,6 +7,9 @@ import axios from 'axios'
 import infiniteScroll from 'vue-infinite-scroll'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
+import Element from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+import locale from 'element-ui/lib/locale/lang/ko'
 
 Vue.config.productionTip = false
 
@@ -22,6 +25,7 @@ Vue.use(infiniteScroll)
 Vue.use(VueRouter)
 Vue.use(VueHead)
 Vue.use(Vuetify)
+Vue.use(Element, { locale });
 
 function loadView(view) {
   return () => import(/* webpackChunkName: "view-[request]" */ `./components/${view}.vue`)

@@ -6,6 +6,8 @@ import user from './user'
 
 import _ from 'lodash'
 
+import VueScrollTo from 'vue-scrollto'
+
 Vue.use(Vuex)
 
 const contentStore = new Vuex.Store({
@@ -109,6 +111,7 @@ const contentStore = new Vuex.Store({
     viewContent (context, pid) {
       console.log(user.getters.isLogin())
       let item = context.getters.byId(pid)
+      item.viewed = true
       let views = JSON.parse(localStorage.getItem('views') || JSON.stringify({ 'views': [] }))
       views.views.push(item)
       localStorage.setItem('views', JSON.stringify(views))
@@ -124,8 +127,27 @@ const contentStore = new Vuex.Store({
       context.dispatch('viewContent', pid)
       context.commit('removeByPid', pid)
       console.log(context.state.contents.length)
-      if (context.state.contents.length < 3) {
+      let notViewedContentLength = _.reduce(context.state_content, (sum, o) => {
+        if (o.viewed) {
+          return sum
+        }
+        return sum + 1
+      })
+      if (noteViewedContentLength < 3) {
         context.dispatch('fetchRandom')
+      }
+    },
+
+    next (context) {
+      for (let item of context.state.contents) {
+        if (item.viewed) {
+          continue
+        }
+
+        console.log(item.permanent_id)
+        VueScrollTo.scrollTo('#' + CSS.escape(item.permanent_id), 0)
+        context.dispatch('removeByPid', item.permanent_id)
+        break
       }
     }
   }

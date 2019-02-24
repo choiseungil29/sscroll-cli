@@ -62,6 +62,7 @@ export default {
 
     next() {
       console.log('hi')
+      contentStore.dispatch('next')
     }
   },
 };

@@ -7,8 +7,8 @@
   <div :id="content.permanent_id" class="data container section" v-if="content" ref="contentBox">
     <h3>{{ content.title }}</h3>
     <!-- <button class="btn btn-primary">와드</button> -->
-    <button v-on:click="link" class="btn btn-primary">링크 복사</button>
-    <button v-on:click="next" :data-pid="content.permanent_id" class="btn btn-primary">거르기</button>
+    <el-button plain v-on:click="link">링크 복사</el-button>
+    <el-button plain v-on:click="next" :data-pid="content.permanent_id">거르기</el-button>
     <div class="row content">
       <div class="col" v-html="content.data">
       </div>
@@ -17,8 +17,8 @@
     <div style="display: flex; justify-content: center; margin-bottom:20px;">
       <iframe class="ad" :width="this.width" :height="this.height" allowtransparency="true" :src="this.source" frameborder="0" scrolling="no"></iframe>
     </div>
-    <button v-on:click="link" class="btn btn-primary">링크 복사</button>
-    <button v-on:click="next" :data-pid="content.permanent_id" class="btn btn-primary">거르기</button>
+    <el-button plain v-on:click="link" class="btn btn-primary">링크 복사</el-button>
+    <el-button plain v-on:click="next" :data-pid="content.permanent_id" class="btn btn-primary">거르기</el-button>
 
     <div class="comments">
       <table class="table table-hover table-bordered">
@@ -28,7 +28,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="comment in comments">
+          <tr v-for="comment in comments" :key="comment.id">
             <th scope="row" style="text-align: left;" v-if="comment.data != ''">{{ comment.data }}</th>
           </tr>
           <tr>
@@ -171,7 +171,7 @@ export default {
     },
 
     next(event) {
-      VueScrollTo.scrollTo('#' + CSS.escape(this.pid), 0, { offset: -56 })
+      VueScrollTo.scrollTo('#' + CSS.escape(this.pid), 0)
       this.viewed = true
       contentStore.dispatch('removeByPid', this.pid)
     },
@@ -203,7 +203,6 @@ div.data {
   width: 100vw;
   max-width: 800px;
   height: 100%;
-  padding-top: 2rem;
   background-color: white;
   padding-bottom: 2rem;
 }
@@ -225,10 +224,6 @@ div.comments {
 * /deep/ .content iframe {
   max-width: 100%;
   width: 100%;
-}
-
-button.btn-primary {
-  margin-left: 15px;
 }
 
 button.btn-primary#addComment {
