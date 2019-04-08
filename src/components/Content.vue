@@ -1,9 +1,9 @@
 <template> 
   <div>
     <div :id="content.permanent_id" class="data container section" :class="{ expand: !isExpand }" v-if="content" ref="contentBox">
-      <h3>{{ content.title }}</h3>
-      <h5>{{ content.user.nickname }}</h5>
-      <h5>{{ content.date }}</h5>
+      <h3>글 제목 : {{ content.title }}</h3>
+      <h5>작성자 : {{ content.user.nickname }}</h5>
+      <h5>작성일자 : {{ content.date }}</h5>
       <el-button plain v-on:click="link">링크 복사</el-button>
       <div class="row content">
         <div class="col" v-html="content.data">
@@ -16,11 +16,15 @@
 
       <div class="comments">
         <Comment :comment="comment" v-for="comment in comments" :key="comment.id" />
-        <div style="display: flex; justify-content: center;">
+        <el-input placeholder="댓글" v-model="commentData" class="input-with-select">
+          <el-button slot="append" icon="el-icon-circle-plus-outline" v-on:click="addComment"></el-button>
+        </el-input>
+        <div style="display: flex; justify-content: center; margin-top: 15px;">
           <iframe class="ad" :width="this.width" :height="this.height" allowtransparency="true" :src="this.source" frameborder="0" scrolling="no"></iframe>
         </div>
       </div>
     </div>
+    
     <el-button plain v-on:click="open" v-if="!isExpand" class="btn btn-primary">더 보기</el-button>
   </div>
 </template>
@@ -30,6 +34,7 @@ import VueScrollTo from 'vue-scrollto';
 import Comment from './Comment';
 import contentStore from '../store/modules/contents';
 import * as getters from '../store/modules/contents/getters';
+import * as actions from '../store/modules/contents/types';
 
 import _ from 'lodash';
 
@@ -47,6 +52,10 @@ export default {
   },
 
   created() {
+    console.log(this.content)
+    if (!this.content) {
+      this[actions.FETCH](this.pid);
+    }
 
     var filter = "win16|win32|win64|mac|macintel";
     if ( navigator.platform ) {
@@ -82,6 +91,8 @@ export default {
         this.viewed = true
       }
     })
+
+    
   },
 
   data() {
@@ -92,7 +103,8 @@ export default {
       source: '',
       adfit_source: '',
       width: 0,
-      height: 0
+      height: 0,
+      commentData: ''
     }
   },
 
@@ -100,7 +112,11 @@ export default {
     ...contentStore.mapGetters([getters.BY_ID]),
 
     content() {
-      return this[getters.BY_ID](this.pid);
+      let c = this[getters.BY_ID](this.pid);
+      if (c && c.type.name === 'SSCROLL_BOARD') {
+        this.isExpand = true;
+      }
+      return c;
     },
 
     comments() {
@@ -109,6 +125,8 @@ export default {
   },
 
   methods: {
+    ...contentStore.mapActions([actions.FETCH, actions.WRITE_COMMENT]),
+
     open(event) {
       this.isExpand = true;
     },
@@ -138,7 +156,13 @@ export default {
         document.execCommand('copy');
         document.body.removeChild(el);
       }
-      copyText(window.location.href + this.pid)
+      if (window.location.href.includes(this.pid)) {
+        copyText(window.location.href);
+        console.log(window.location.href);
+      } else {
+        copyText(window.location.href + this.pid)
+        console.log(window.location.href);
+      }
     },
 
     loadComment(event) {
@@ -148,6 +172,16 @@ export default {
         this.comment_length += 5
       }
     },
+
+    addComment(event) {
+      if (this.commentData.length <= 0) {
+        alert('댓글 내용을 작성해주세요!');
+        return;
+      }
+
+      this[actions.WRITE_COMMENT]({ contentPid: this.pid, commentData: this.commentData });
+      this.commentData = '';
+    }
   }
 }
 </script>

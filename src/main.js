@@ -36,6 +36,9 @@ const routes = [
   { path: '/', name: 'main', component: loadView('Contents') },
   { path: '/recent', component: loadView('Recent') },
   { path: '/one', name: 'one', component: loadView('Content') },
+  { path: '/boards', name: 'boards', component: loadView('Boards') },
+  { path: '/boards/:bid', name: 'board', component: loadView('Board') },
+  { path: '/boards/create', name: 'boardCreate', component: loadView('BoardCreate') },
   { path: '/:pid', name: 'content', component: loadView('Contents') },
 ]
 

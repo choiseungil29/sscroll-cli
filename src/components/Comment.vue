@@ -1,12 +1,20 @@
 <template>
   <div class="box">
-    <p>{{ comment.user.nickname }}</p>
-    <p>{{ comment.data }} {{ comment.date }}</p>
+    <div>
+      <p>작성자: {{ comment.user.nickname }}</p>
+      <p>{{ comment.data }} {{ comment.date }}</p>
+      <el-button v-on:click="visibilityComment">댓댓 달기</el-button>
+      <el-input placeholder="댓글" v-model="commentData" class="input-with-select" :class="{ visible: !visibility }">
+        <el-button slot="append" icon="el-icon-circle-plus-outline" v-on:click="addComment"></el-button>
+      </el-input>
+    </div>
     <Comment v-for="child in comment.children" :comment="child" :key="child.id" />
   </div>
 </template>
 
 <script>
+import contentStore from '../store/modules/contents';
+import * as actions from '../store/modules/contents/types';
 
 export default {
   name: 'Comment',
@@ -18,6 +26,30 @@ export default {
   },
 
   created() {
+  },
+
+  data() {
+    return {
+      visibility: false,
+      commentData: ''
+    }
+  },
+
+  methods: {
+    ...contentStore.mapActions([actions.WRITE_COMMENT]),
+
+    visibilityComment(e) {
+      this.visibility = !this.visibility;
+    },
+
+    addComment(e) {
+      if (this.commentData.length <= 0) {
+        alert('댓글 내용을 작성해주세요!');
+      }
+
+      this[actions.WRITE_COMMENT]({ contentPid: this.comment.content_pid, commentData: this.commentData, parentId: this.comment.parent_id || this.comment.id });
+      this.commentData = '';
+    }
   }
 }
 </script>
@@ -26,7 +58,11 @@ export default {
 
 .box {
   border: 1px solid blue;
-  margin-left: 10px;
+  padding-left: 10px;
+}
+
+.visible {
+  display: none;
 }
 
 </style>
