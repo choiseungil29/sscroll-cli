@@ -9,7 +9,8 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import Element from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-import locale from 'element-ui/lib/locale/lang/ko'
+import locale from 'element-ui/lib/locale/lang/ko';
+import store from './store';
 
 Vue.config.productionTip = false
 
@@ -32,15 +33,10 @@ function loadView(view) {
 }
 
 const routes = [
-  { path: '/', name: 'main', component: loadView('Contents') }, /*, beforeEnter: (to, from, next) => { contentStore.dispatch('reset'); next(); }  */
-  { path: '/board', component: loadView('Boards') },
-  { path: '/login', name: 'login', component: loadView('Login') },
-  { path: '/signup', name: 'signup', component: loadView('Signup') },
+  { path: '/', name: 'main', component: loadView('Contents') },
   { path: '/recent', component: loadView('Recent') },
   { path: '/one', name: 'one', component: loadView('Content') },
-  { path: '/board/:bid', name: 'board', component: loadView('Board') },
   { path: '/:pid', name: 'content', component: loadView('Contents') },
-  // { path: '/:pid', name: 'content', component: Content, props: true }
 ]
 
 const router = new VueRouter({
@@ -56,5 +52,6 @@ Vue.use(VueAnalytics, {
 
 new Vue({
   router,
-  render: h => h(App)
+  render: h => h(App),
+  store
 }).$mount('#app')

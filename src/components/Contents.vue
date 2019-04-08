@@ -4,13 +4,13 @@
       <div style="height: 100%;">
         <Content :pid="content.permanent_id" />
       </div>
-    </div> 
-    <v-btn fixed dark fab bottom right color="pink" @click="next"><v-icon>angle-right</v-icon></v-btn>
+    </div>
   </div>
 </template>
 
 <script>
-import contentStore from '../store/content'
+import contentStore from '../store/modules/contents'
+import * as actions from '../store/modules/contents/types';
 import Content from './Content'
 
 export default {
@@ -18,17 +18,6 @@ export default {
 
   components: {
     Content
-  },
-
-  head: {
-    title: function () {
-      return {
-        inner: '메인'
-      }
-    },
-    meta: [
-      { name: 'description', content: '쓰크롤 메인', id: 'desc' }
-    ]
   },
 
   data() {
@@ -39,31 +28,19 @@ export default {
   },
 
   computed: {
-    contents() {
-      return contentStore.state.contents
+    ...contentStore.mapState({ contents: state => state.contents }),
+  },
+
+  methods: {
+    ...contentStore.mapActions([actions.FETCH_ALL]),
+
+    loadMore() {
+
     }
   },
 
   created() {
-    if (this.$route.params.pid) {
-      contentStore.dispatch('fetchById', this.$route.params.pid)
-    }
-  },
-
-  methods: {
-    loadMore() {
-      if (this.init === false) {
-        contentStore.dispatch('fetchRandom')
-        this.minHeight = window.innerHeight - $('nav#header').height()
-      } else {
-        location.reload();
-      }
-    },
-
-    next() {
-      console.log('hi')
-      contentStore.dispatch('next')
-    }
+    this[actions.FETCH_ALL]();
   },
 };
 </script>
@@ -71,7 +48,6 @@ export default {
 <style scoped>
 hr {
   height: 6px;
-  /* background: url(http://ibrahimjabbari.com/english/images/hr-11.png) repeat-x 0 0; */
   border: 0;
   margin: 0;
 }

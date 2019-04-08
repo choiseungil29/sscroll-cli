@@ -23,22 +23,15 @@
 </template>
 
 <script>
-import contentStore from '../store/content'
-import user from '../store/user'
+import contentStore from '../store/modules/contents'
 
 export default {
   name: 'Nav',
 
   computed: {
-    isLogin() {
-      return user.getters.isLogin()
-    }
   },
 
   methods: {
-    reset(event) {
-      contentStore.dispatch('reset')
-    }
   }
 }
 </script>

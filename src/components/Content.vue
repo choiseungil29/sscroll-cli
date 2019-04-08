@@ -1,52 +1,37 @@
 <template> 
-    <!-- <slide>
-      <div class="data container section" :class="{ gray: index%2 == 0 }">
-	와드(예정)
+  <div>
+    <div :id="content.permanent_id" class="data container section" :class="{ expand: !isExpand }" v-if="content" ref="contentBox">
+      <h3>{{ content.title }}</h3>
+      <h5>{{ content.user.nickname }}</h5>
+      <h5>{{ content.date }}</h5>
+      <el-button plain v-on:click="link">링크 복사</el-button>
+      <div class="row content">
+        <div class="col" v-html="content.data">
+        </div>
       </div>
-    </slide> -->
-  <div :id="content.permanent_id" class="data container section" v-if="content" ref="contentBox">
-    <h3>{{ content.title }}</h3>
-    <!-- <button class="btn btn-primary">와드</button> -->
-    <el-button plain v-on:click="link">링크 복사</el-button>
-    <el-button plain v-on:click="next" :data-pid="content.permanent_id">거르기</el-button>
-    <div class="row content">
-      <div class="col" v-html="content.data">
-      </div>
-    </div>
-    <!-- <button class="btn btn-primary">와드</button> -->
-    <div style="display: flex; justify-content: center; margin-bottom:20px;">
-      <iframe class="ad" :width="this.width" :height="this.height" allowtransparency="true" :src="this.source" frameborder="0" scrolling="no"></iframe>
-    </div>
-    <el-button plain v-on:click="link" class="btn btn-primary">링크 복사</el-button>
-    <el-button plain v-on:click="next" :data-pid="content.permanent_id" class="btn btn-primary">거르기</el-button>
-
-    <div class="comments">
-      <table class="table table-hover table-bordered">
-        <thead>
-          <tr>
-            <th scope="col" style="text-align: left;">댓글</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="comment in comments" :key="comment.id">
-            <th scope="row" style="text-align: left;" v-if="comment.data != ''">{{ comment.data }}</th>
-          </tr>
-          <tr>
-            <td style="padding: 0 0 0 0;"><button type="button" class="btn btn-primary" style="width: 100%; height: 100%; min-height: 3rem; padding: 0 0 0 0; margin: 0 0 0 0; border-top-left-radius: 0; border-top-right-radius: 0;" @click="loadComment">댓글 더 보기</button></td>
-          </tr>
-        </tbody>
-      </table>
-      <div style="display: flex; justify-content: center;">
+      <div style="display: flex; justify-content: center; margin-bottom:20px;">
         <iframe class="ad" :width="this.width" :height="this.height" allowtransparency="true" :src="this.source" frameborder="0" scrolling="no"></iframe>
       </div>
+      <el-button plain v-on:click="link" class="btn btn-primary">링크 복사</el-button>
+
+      <div class="comments">
+        <Comment :comment="comment" v-for="comment in comments" :key="comment.id" />
+        <div style="display: flex; justify-content: center;">
+          <iframe class="ad" :width="this.width" :height="this.height" allowtransparency="true" :src="this.source" frameborder="0" scrolling="no"></iframe>
+        </div>
+      </div>
     </div>
+    <el-button plain v-on:click="open" v-if="!isExpand" class="btn btn-primary">더 보기</el-button>
   </div>
 </template>
 
 <script>
-import VueScrollTo from 'vue-scrollto'
-import contentStore from '../store/content'
-import { Carousel, Slide } from 'vue-carousel'
+import VueScrollTo from 'vue-scrollto';
+import Comment from './Comment';
+import contentStore from '../store/modules/contents';
+import * as getters from '../store/modules/contents/getters';
+
+import _ from 'lodash';
 
 export default {
   name: 'Content',
@@ -58,28 +43,24 @@ export default {
   },
 
   components: {
-    Carousel,
-    Slide
+    Comment
   },
 
   created() {
-    contentStore.dispatch('fetchById', this.pid)
 
     var filter = "win16|win32|win64|mac|macintel";
     if ( navigator.platform ) {
       if ( filter.indexOf( navigator.platform.toLowerCase() ) < 0 ) {
         this.width = 320;
         this.height = 100;
-	this.adfit_source = 'DAN-1jy4xgkqsrxh4'
+        this.adfit_source = 'DAN-1jy4xgkqsrxh4'
         this.source = 'https://mtab.clickmon.co.kr/pop/wp_m_320_100.php?PopAd=CM_M_1003067%7C%5E%7CCM_A_1049535%7C%5E%7CAdver_M_1046207&mon_rf=REFERRER_URL'
-        console.log('mobile');
       } else {
         this.width = 728;
         this.height = 90;
-	this.adfit_source = 'DAN-vf6ea3gh500z'
+        this.adfit_source = 'DAN-vf6ea3gh500z'
         this.source = 'https://tab2.clickmon.co.kr/pop/wp_ad_728.php?PopAd=CM_M_1003067%7C%5E%7CCM_A_1049535%7C%5E%7CAdver_M_1046207&mon_rf=REFERRER_URL'
-        console.log('desktop');
-      } 
+      }
     }
   },
 
@@ -99,25 +80,14 @@ export default {
       let clientRect = this.$refs.contentBox.getBoundingClientRect()
       if (-clientRect.y > clientRect.height) {
         this.viewed = true
-        contentStore.dispatch('viewContent', this.pid)
       }
-    })
-
-    $(window).bind('touchstart', event => {
-      console.log('touch start')
-      this.mouseDrag = false
-    })
-
-    $(window).bind('touchend', event => {
-      console.log('touch end')
-      this.mouseDrag = true
     })
   },
 
   data() {
     return {
+      isExpand: false,
       viewed: false,
-      mouseDrag: true,
       comment_length: 5,
       source: '',
       adfit_source: '',
@@ -127,20 +97,22 @@ export default {
   },
 
   computed: {
-    content() {
-      return contentStore.getters.byId(this.pid)
-    },
+    ...contentStore.mapGetters([getters.BY_ID]),
 
-    index() {
-      return contentStore.getters.index(this.pid)
+    content() {
+      return this[getters.BY_ID](this.pid);
     },
 
     comments() {
-      return this.content.comments.slice(0, this.comment_length)
-    }
+      return _.orderBy(this.content.comments.filter(c => !c.parent_id), 'created_at', 'asc'); // 1차 댓글만 표현함
+    },
   },
 
   methods: {
+    open(event) {
+      this.isExpand = true;
+    },
+
     ward(event) {
 
     },
@@ -166,14 +138,7 @@ export default {
         document.execCommand('copy');
         document.body.removeChild(el);
       }
-
       copyText(window.location.href + this.pid)
-    },
-
-    next(event) {
-      VueScrollTo.scrollTo('#' + CSS.escape(this.pid), 0)
-      this.viewed = true
-      contentStore.dispatch('removeByPid', this.pid)
     },
 
     loadComment(event) {
@@ -183,12 +148,6 @@ export default {
         this.comment_length += 5
       }
     },
-
-    pageChange(currentPage) {
-      if (currentPage == 1) {
-        setTimeout(this.next, 500)
-      }
-    }
   }
 }
 </script>
@@ -205,6 +164,12 @@ div.data {
   height: 100%;
   background-color: white;
   padding-bottom: 2rem;
+}
+
+div.expand {
+  height: 300px;
+  overflow: auto;
+  overflow-y: hidden;
 }
 
 div.content {

@@ -22,13 +22,13 @@
 </template>
 
 <script>
-import contentStore from "../store/content"
+import contentStore from "../store/modules/contents"
 
 export default {
   name: 'Recent',
 
   created() {
-    this.contents = contentStore.getters.recent()
+    // this.contents = contentStore.getters.recent()
   },
 
   computed: {
