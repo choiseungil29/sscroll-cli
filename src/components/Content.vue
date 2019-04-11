@@ -19,6 +19,7 @@
         <el-input placeholder="댓글" v-model="commentData" class="input-with-select">
           <el-button slot="append" icon="el-icon-circle-plus-outline" v-on:click="addComment"></el-button>
         </el-input>
+        <el-button icon="el-icon-circle-plus-outline" v-on:click="() => this.comment_length += 5">댓글 더 보기</el-button>
         <div style="display: flex; justify-content: center; margin-top: 15px;">
           <iframe class="ad" :width="this.width" :height="this.height" allowtransparency="true" :src="this.source" frameborder="0" scrolling="no"></iframe>
         </div>
@@ -120,15 +121,17 @@ export default {
     },
 
     comments() {
-      return _.orderBy(this.content.comments.filter(c => !c.parent_id), 'created_at', 'asc'); // 1차 댓글만 표현함
+      let items = _.orderBy(this.content.comments.filter(c => !c.parent_id), 'created_at', 'asc'); // 1차 댓글만 표현함
+      return items.slice(0, this.comment_length);
     },
   },
 
   methods: {
-    ...contentStore.mapActions([actions.FETCH, actions.WRITE_COMMENT]),
+    ...contentStore.mapActions([actions.FETCH, actions.FETCH_COMMENTS, actions.WRITE_COMMENT]),
 
     open(event) {
       this.isExpand = true;
+      this[actions.FETCH_COMMENTS]({ contentPid: this.pid });
     },
 
     ward(event) {
