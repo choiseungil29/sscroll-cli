@@ -4,7 +4,7 @@
       <p>작성자: {{ comment.user.nickname }}</p>
       <p>{{ comment.data }} {{ comment.date }}</p>
       <el-button v-on:click="visibilityComment">댓댓 달기</el-button>
-      <el-input placeholder="댓글" v-model="commentData" class="input-with-select" :class="{ visible: !visibility }">
+      <el-input ref="commentBox" type="text" placeholder="댓글" v-model="commentData" class="input-with-select" :class="{ visible: !visibility }">
         <el-button slot="append" icon="el-icon-circle-plus-outline" v-on:click="addComment"></el-button>
       </el-input>
     </div>
@@ -40,6 +40,11 @@ export default {
 
     visibilityComment(e) {
       this.visibility = !this.visibility;
+      if (this.visibility) {
+        this.commentData = '@' + this.comment.user.nickname + ' ';
+      } else {
+        this.commentData = '';
+      }
     },
 
     addComment(e) {

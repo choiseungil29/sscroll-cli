@@ -164,12 +164,8 @@ export default {
         document.execCommand('copy');
         document.body.removeChild(el);
       }
-      if (window.location.href.includes(this.pid)) {
-        copyText(window.location.href);
-      } else {
-        copyText(window.location.href + this.pid)
-        console.log(window.location.href);
-      }
+
+      copyText(window.location.host + '/' + this.pid);
     },
 
     loadComment(event) {
