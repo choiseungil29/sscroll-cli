@@ -11,6 +11,7 @@
 <script>
 import contentStore from '../store/modules/contents'
 import * as actions from '../store/modules/contents/types';
+import * as getters from '../store/modules/contents/getters';
 import Content from './Content'
 
 export default {
@@ -28,7 +29,8 @@ export default {
   },
 
   computed: {
-    ...contentStore.mapState({ contents: state => state.contents }),
+    ...contentStore.mapGetters({ contents: getters.ALL_CONTENTS })
+    // ...contentStore.mapState({ contents: state => state.contents }),
   },
 
   methods: {

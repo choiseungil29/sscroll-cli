@@ -158,7 +158,6 @@ export default {
       }
       if (window.location.href.includes(this.pid)) {
         copyText(window.location.href);
-        console.log(window.location.href);
       } else {
         copyText(window.location.href + this.pid)
         console.log(window.location.href);
