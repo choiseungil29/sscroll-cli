@@ -37,7 +37,7 @@ export default {
     ...contentStore.mapActions([actions.FETCH_ALL]),
 
     loadMore() {
-
+      this[actions.FETCH_ALL]();
     }
   },
 

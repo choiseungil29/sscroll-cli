@@ -36,5 +36,9 @@ export default {
       .then(res => {
         commit(actions.WRITE_BOARD, res.data);
       }).catch(err => console.log(err));
+  },
+
+  [actions.VIEW_CONTENT]({ commit }, { contentPid }) {
+    axios.post(`/api/contents/${contentPid}/view`);
   }
 }

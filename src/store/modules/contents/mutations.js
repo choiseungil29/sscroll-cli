@@ -6,12 +6,16 @@ export default {
   },
 
   [mutations.FETCH_ALL](state, items) {
-    state.contents.push(...items)
+    for (let item of items) {
+      if (!state.contents.find(c => c.id === item.id)) {
+        state.contents.push(item);
+      }
+    }
   },
 
   [mutations.FETCH_COMMENTS](state, { contentPid, items }) {
     let content = state.contents.find(c => c.permanent_id === contentPid)
-    content.comments.push(...items)
+    content.comments.push(...items);
   },
 
   [mutations.WRITE_COMMENT](state, comment) {

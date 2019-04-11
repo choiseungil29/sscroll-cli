@@ -19,7 +19,7 @@
         <el-input placeholder="댓글" v-model="commentData" class="input-with-select">
           <el-button slot="append" icon="el-icon-circle-plus-outline" v-on:click="addComment"></el-button>
         </el-input>
-        <el-button icon="el-icon-circle-plus-outline" v-on:click="() => this.comment_length += 5">댓글 더 보기</el-button>
+        <el-button icon="el-icon-circle-plus-outline" v-on:click="loadComment">댓글 더 보기</el-button>
         <div style="display: flex; justify-content: center; margin-top: 15px;">
           <iframe class="ad" :width="this.width" :height="this.height" allowtransparency="true" :src="this.source" frameborder="0" scrolling="no"></iframe>
         </div>
@@ -121,17 +121,22 @@ export default {
     },
 
     comments() {
-      let items = _.orderBy(this.content.comments.filter(c => !c.parent_id), 'created_at', 'asc'); // 1차 댓글만 표현함
+      let items = this.full_comments;
       return items.slice(0, this.comment_length);
     },
+
+    full_comments() {
+      return _.orderBy(this.content.comments.filter(c => !c.parent_id), 'created_at', 'asc'); // 1차 댓글만 표현함
+    }
   },
 
   methods: {
-    ...contentStore.mapActions([actions.FETCH, actions.FETCH_COMMENTS, actions.WRITE_COMMENT]),
+    ...contentStore.mapActions([actions.FETCH, actions.FETCH_COMMENTS, actions.WRITE_COMMENT, actions.VIEW_CONTENT]),
 
     open(event) {
       this.isExpand = true;
       this[actions.FETCH_COMMENTS]({ contentPid: this.pid });
+      this[actions.VIEW_CONTENT]({ contentPid: this.pid });
     },
 
     ward(event) {
@@ -168,8 +173,8 @@ export default {
     },
 
     loadComment(event) {
-      if (this.comments.length < this.comment_length) {
-        alert('더이상 불러올 댓글이 없습니다!')
+      if (this.full_comments.length < this.comment_length) {
+        alert('더이상 불러올 댓글이 없습니다!');
       } else {
         this.comment_length += 5
       }
