@@ -10,9 +10,16 @@ export default {
   },
 
   [actions.FETCH_ALL]({ commit }) {
-    axios.get(`/api/fill`)
+    axios.get(`/api/contents`)
       .then(res => {
         commit(actions.FETCH_ALL, res.data);
+      }).catch(err => console.log(err));
+  },
+
+  [actions.FETCH_COMMENTS]({ commit }, {contentPid }) {
+    axios.get(`/api/contents/${contentPid}/comments`)
+      .then(res => {
+        commit(actions.FETCH_COMMENTS, { contentPid: contentPid,  items: res.data });
       }).catch(err => console.log(err));
   },
 
