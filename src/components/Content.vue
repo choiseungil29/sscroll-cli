@@ -115,7 +115,8 @@ export default {
     content() {
       let c = this[getters.BY_ID](this.pid);
       if (c && c.type.name === 'SSCROLL_BOARD') {
-        this.isExpand = true;
+        // this.isExpand = true;
+        this.open()
       }
       return c;
     },
