@@ -15,6 +15,7 @@ export default {
 
   [mutations.FETCH_COMMENTS](state, { contentPid, items }) {
     let content = state.contents.find(c => c.permanent_id === contentPid)
+    content.comments = [];
     content.comments.push(...items);
   },
 
