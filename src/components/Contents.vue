@@ -21,6 +21,7 @@ export default {
     Content
   },
 
+
   data() {
     return {
       minHeight: window.innerHeight,
@@ -34,7 +35,7 @@ export default {
   },
 
   methods: {
-    ...contentStore.mapActions([actions.FETCH_ALL]),
+    ...contentStore.mapActions([actions.FETCH_ALL, actions.FETCH]),
 
     loadMore() {
       this[actions.FETCH_ALL]();
@@ -42,6 +43,9 @@ export default {
   },
 
   created() {
+    if (this.$route.params.pid) {
+      this[actions.FETCH](this.$route.params.pid);
+    }
     this[actions.FETCH_ALL]();
   },
 };

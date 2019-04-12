@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export default {
   [actions.FETCH]({ commit }, pid) {
-    axios.get(`/api/${pid}`)
+    axios.get(`/api/contents/${pid}`)
       .then(res => {
         commit(actions.FETCH, res.data);
       }).catch(err => console.log(err));
