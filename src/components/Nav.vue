@@ -12,13 +12,13 @@
   </nav> -->
   <el-menu
     :default-active="1"
-    class="el-menu-demo"
+    class="el-menu"
     mode="horizontal"
     @select="handleSelect"
     >
-    <el-menu-item index="1"><router-link to='/'><p style="font-size: 24px;">쓰끄롤</p></router-link></el-menu-item>
+    <el-menu-item class="el-menu-item" index="1"><router-link to='/'><p style="font-size: 24px;">쓰끄롤</p></router-link></el-menu-item>
     <!-- <el-menu-item index="2"><router-link to='/recent'>최근 본 게시물</router-link></el-menu-item> -->
-    <el-menu-item index="3"><router-link to='/boards'>익명 게시판</router-link></el-menu-item>
+    <el-menu-item class="el-menu-item" index="3"><router-link to='/boards'>익명 게시판</router-link></el-menu-item>
     <!-- <el-menu-item index="3"><a href="https://www.ele.me" target="_blank">Orders</a></el-menu-item> -->
   </el-menu>
 </template>
@@ -47,5 +47,14 @@ nav#header {
   width: 100%;
   z-index: 1021;
   transition: all 0.5s;
+}
+
+.el-menu {
+  position: fixed;
+  width: 100%;
+}
+
+.el-menu-item {
+  border-bottom: none !important;
 }
 </style>

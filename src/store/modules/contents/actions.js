@@ -31,6 +31,13 @@ export default {
       }).catch(err => console.log(err));
   },
 
+  [actions.FETCH_BOARD_ALL]({ commit }) {
+    axios.get('/api/board')
+      .then(res => {
+        commit(actions.FETCH_BOARD_ALL, res.data);
+      })
+  },
+
   [actions.WRITE_BOARD]({ commit }, { title, data }) {
     axios.post(`/api/board`, { title: title, data: data })
       .then(res => {

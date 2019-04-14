@@ -32,7 +32,8 @@ export default {
   name: 'Boards',
 
   created() {
-    this[actions.FETCH_ALL]();
+    // this[actions.FETCH_ALL]();
+    this[actions.FETCH_BOARD_ALL]();
   },
 
   data() {
@@ -45,7 +46,7 @@ export default {
   },
 
   methods: {
-    ...contentStore.mapActions([actions.FETCH_ALL]),
+    ...contentStore.mapActions([actions.FETCH_BOARD_ALL]),
 
     createBoard() {
       this.$router.push('/boards/create');

@@ -19,6 +19,10 @@ export default {
     content.comments.push(...items);
   },
 
+  [mutations.FETCH_BOARD_ALL](state, items) {
+    state.contents.push(...items);
+  },
+
   [mutations.WRITE_COMMENT](state, comment) {
     console.log(comment);
     let content = state.contents.find(c => c.permanent_id === comment.content_pid);
