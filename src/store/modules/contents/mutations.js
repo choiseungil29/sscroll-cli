@@ -20,7 +20,14 @@ export default {
   },
 
   [mutations.FETCH_BOARD_ALL](state, items) {
-    state.contents.push(...items);
+    for (let item of items) {
+      let content = state.contents.find(c => c.id === item.id);
+      if (!content) {
+        state.contents.push(item);
+      } else {
+        content = item;
+      }
+    }
   },
 
   [mutations.WRITE_COMMENT](state, comment) {
