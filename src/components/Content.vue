@@ -13,6 +13,8 @@
         <iframe class="ad" :width="this.width" :height="this.height" allowtransparency="true" :src="this.source" frameborder="0" scrolling="no"></iframe>
       </div>
       <el-button plain v-on:click="link" class="btn btn-primary">링크 복사</el-button>
+      <el-button plain v-on:click="like" class="btn btn-primary">좋아요 {{ this.likesCount }}</el-button>
+      <el-button plain v-on:click="unlike" class="btn btn-primary">싫어요 {{ this.unlikesCount }}</el-button>
 
       <div class="comments">
         <Comment :comment="comment" v-for="comment in comments" :key="comment.id" />
@@ -126,18 +128,38 @@ export default {
       return items.slice(0, this.comment_length);
     },
 
+
+    likesCount() {
+      let item = this[getters.BY_ID](this.pid);
+      return item.up + item.ups.length;
+    },
+
+    unlikesCount() {
+      let item = this[getters.BY_ID](this.pid);
+      return item.down + item.downs.length;
+    },
+
     full_comments() {
       return _.orderBy(this.content.comments.filter(c => !c.parent_id), 'created_at', 'asc'); // 1차 댓글만 표현함
     }
   },
 
   methods: {
-    ...contentStore.mapActions([actions.FETCH, actions.FETCH_COMMENTS, actions.WRITE_COMMENT, actions.VIEW_CONTENT]),
+    ...contentStore.mapActions([actions.FETCH, actions.FETCH_COMMENTS, actions.WRITE_COMMENT, actions.VIEW_CONTENT, actions.LIKE_CONTENT, actions.UNLIKE_CONTENT]),
 
     open(event) {
       this.isExpand = true;
       this[actions.FETCH_COMMENTS]({ contentPid: this.pid });
       this[actions.VIEW_CONTENT]({ contentPid: this.pid });
+      // this[actions.LIKE_CONTENT]({ contentPid: this.pid });
+    },
+
+    like(event) {
+      this[actions.LIKE_CONTENT]({ contentPid: this.pid })
+    },
+
+    unlike(event) {
+      this[actions.UNLIKE_CONTENT]({ contentPid: this.pid })
     },
 
     ward(event) {

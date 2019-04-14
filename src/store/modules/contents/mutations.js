@@ -24,7 +24,6 @@ export default {
   },
 
   [mutations.WRITE_COMMENT](state, comment) {
-    console.log(comment);
     let content = state.contents.find(c => c.permanent_id === comment.content_pid);
     
     if (comment.parent_id) {
@@ -37,5 +36,15 @@ export default {
 
   [mutations.WRITE_BOARD](state, board) {
     state.contents.push(board);
+  },
+
+  [mutations.LIKE_CONTENT](state, { contentPid, replaceContent }) {
+    let content = state.contents.find(c => c.permanent_id === contentPid);
+    content.ups = replaceContent.ups;
+  },
+
+  [mutations.UNLIKE_CONTENT](state, { contentPid, replaceContent }) {
+    let content = state.contents.find(c => c.permanent_id === contentPid);
+    content.downs = replaceContent.downs;
   }
 }
