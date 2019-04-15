@@ -66,7 +66,7 @@ export default {
 
 div.main {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 50px;
 }
 
 div.data {
