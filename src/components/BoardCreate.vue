@@ -46,8 +46,10 @@ export default {
     ...contentStore.mapActions([actions.WRITE_BOARD]),
 
     addBoard() {
-      console.log(this.title);
-      console.log(this.getHtml());
+      if (this.title.trim().length === 0) {
+        alert('제목을 입력해주세요');
+        return;
+      }
 
       this[actions.WRITE_BOARD]({ title: this.title, data: this.getHtml() });
       alert('작성이 완료되었습니다.');

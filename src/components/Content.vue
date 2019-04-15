@@ -1,35 +1,38 @@
 <template> 
   <div>
     <div class="main-box container">
-      <div :id="content.permanent_id" class="data container" :class="{ expand: !isExpand }" v-if="content" ref="contentBox">
-        <p class="title">{{ content.title }}</p>
-        <span class="writer">{{ content.user.nickname }}</span>
-        <span class="created-at">{{ content.date }}</span>
-        <div class="row content">
-          <div class="col" v-html="content.data">
+      <div :id="content.permanent_id" class="data container" :class="{ expand: isExpand }" :style="expandStyle" v-if="content">
+        <div ref="contentBox">
+          <p class="title">{{ content.title }}</p>
+          <span class="writer">{{ content.user.nickname }}</span>
+          <span class="created-at">{{ content.date }}</span>
+          <div class="row content">
+            <div class="col" v-html="content.data">
+            </div>
           </div>
-        </div>
-        <div style="display: flex; justify-content: center; margin-bottom:20px;">
-          <iframe class="ad" :width="this.width" :height="this.height" allowtransparency="true" :src="this.source" frameborder="0" scrolling="no"></iframe>
-        </div>
-        <el-button plain v-on:click="like" class="btn btn-primary">좋아요 {{ this.likesCount }}</el-button>
-        <el-button plain v-on:click="unlike" class="btn btn-primary">싫어요 {{ this.unlikesCount }}</el-button>
-
-        <div class="comments">
-          <Comment :comment="comment" v-for="comment in comments" :key="comment.id" />
-          <el-input placeholder="댓글" v-model="commentData" class="input-with-select">
-            <el-button slot="append" icon="el-icon-circle-plus-outline" v-on:click="addComment"></el-button>
-          </el-input>
-          <el-button icon="el-icon-circle-plus-outline" v-on:click="loadComment">댓글 더 보기</el-button>
-          <div style="display: flex; justify-content: center; margin-top: 15px;">
+          <div style="display: flex; justify-content: center; margin-bottom:20px;">
             <iframe class="ad" :width="this.width" :height="this.height" allowtransparency="true" :src="this.source" frameborder="0" scrolling="no"></iframe>
+          </div>
+          <el-button plain v-on:click="link" class="btn btn-primary">Copy Link</el-button>
+          <el-button plain v-on:click="like" class="btn btn-primary">좋아요 {{ this.likesCount }}</el-button>
+          <el-button plain v-on:click="unlike" class="btn btn-primary">싫어요 {{ this.unlikesCount }}</el-button>
+
+          <div class="comments">
+            <Comment :comment="comment" v-for="comment in comments" :key="comment.id" />
+            <el-input placeholder="댓글" v-model="commentData" class="input-with-select">
+              <el-button slot="append" icon="el-icon-circle-plus-outline" v-on:click="addComment"></el-button>
+            </el-input>
+            <el-button icon="el-icon-circle-plus-outline" v-on:click="loadComment">댓글 더 보기</el-button>
+            <div style="display: flex; justify-content: center; margin-top: 15px;">
+              <iframe class="ad" :width="this.width" :height="this.height" allowtransparency="true" :src="this.source" frameborder="0" scrolling="no"></iframe>
+            </div>
           </div>
         </div>
       </div>
       
       <div v-if="!isExpand">
         <div plain v-on:click="open" class="btn load-more">
-          <div class="btn-load-more"><span>더 보기 <i class="fas fa-xs fa-chevron-down" style="width: 10px; height: 6px;"></i></span></div>
+          <div class="btn-load-more"><span>더 보기 <i class="fas fa-xs fa-chevron-down"></i></span></div>
           <div plain v-on:click="link" class="btn btn-primary link"><span><i class="fas fa-md fa-paperclip"></i> Copy Link</span></div>
         </div>
       </div>
@@ -60,7 +63,6 @@ export default {
   },
 
   created() {
-    console.log(this.content)
     if (!this.content) {
       this[actions.FETCH](this.pid);
     }
@@ -81,28 +83,6 @@ export default {
     }
   },
 
-  mounted() {
-
-    const v = this;
-    $(window).scroll((event) => {
-      if (this.viewed) {
-        return
-      }
-
-      if (this.$refs.contentBox == null) {
-        return
-      }
-
-      let y = event.currentTarget.scrollY
-      let clientRect = this.$refs.contentBox.getBoundingClientRect()
-      if (-clientRect.y > clientRect.height) {
-        this.viewed = true
-      }
-    })
-
-    
-  },
-
   data() {
     return {
       isExpand: false,
@@ -112,8 +92,17 @@ export default {
       adfit_source: '',
       width: 0,
       height: 0,
-      commentData: ''
+      commentData: '',
+      expandStyle: {
+        maxHeight: '180px',
+        transition: 'all 1s',
+      }
     }
+  },
+
+  mounted() {
+    console.log(`seconds ${this.getAnimationSeconds()}`);
+    this.expandStyle.transition = `all ${this.getAnimationSeconds()}s`;
   },
 
   computed: {
@@ -156,7 +145,14 @@ export default {
       this.isExpand = true;
       this[actions.FETCH_COMMENTS]({ contentPid: this.pid });
       this[actions.VIEW_CONTENT]({ contentPid: this.pid });
-      // this[actions.LIKE_CONTENT]({ contentPid: this.pid });
+      if (event) {
+        let maxHeight = this.$refs.contentBox.getBoundingClientRect().height * 2;
+        this.expandStyle.maxHeight = `${maxHeight}px`;
+        let expandStyle = this.expandStyle;
+        setTimeout((e) => {
+          expandStyle.maxHeight = '100%';
+        }, this.getAnimationSeconds() * 1000)
+      }
     },
 
     like(event) {
@@ -214,6 +210,12 @@ export default {
 
       this[actions.WRITE_COMMENT]({ contentPid: this.pid, commentData: this.commentData });
       this.commentData = '';
+    },
+
+    getAnimationSeconds() {
+      let maxHeight = this.$refs.contentBox.getBoundingClientRect().height;
+      let seconds = parseInt(maxHeight / 2000) + 1;
+      return seconds;
     }
   }
 }
@@ -223,7 +225,6 @@ export default {
 div.main-box {
   width: 100vw;
   max-width: 800px;
-  height: 100%;
   background-color: white;
   padding-bottom: 2rem;
   padding: 0;
@@ -231,10 +232,14 @@ div.main-box {
   margin-top: 1px;
 }
 
-div.expand {
-  height: 180px;
+div.data {
   overflow: auto;
   overflow-y: hidden;
+	// transition: all 2s;
+}
+
+div.expand {
+  max-height: 100%;
 }
 
 div.content {
@@ -297,10 +302,6 @@ div.link {
   border-color: transparent !important;
   background-color: #0b9ef2;
   color: white;
-}
-
-.gray {
-  background-color: white;
 }
 
 div.data {
