@@ -5,6 +5,7 @@ import VueRouter from 'vue-router'
 import App from './App'
 import axios from 'axios'
 import infiniteScroll from 'vue-infinite-scroll'
+import '@fortawesome/fontawesome-free/css/all.css'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import Element from 'element-ui';
@@ -25,7 +26,9 @@ console.log(process.env.NODE_ENV)
 Vue.use(infiniteScroll)
 Vue.use(VueRouter)
 Vue.use(VueHead)
-Vue.use(Vuetify)
+Vue.use(Vuetify, {
+  iconfont: 'fa'
+})
 Vue.use(Element, { locale });
 
 function loadView(view) {

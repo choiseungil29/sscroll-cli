@@ -1,34 +1,39 @@
 <template> 
   <div>
-    <div :id="content.permanent_id" class="data container section" :class="{ expand: !isExpand }" v-if="content" ref="contentBox">
-      <h3>글 제목 : {{ content.title }}</h3>
-      <h5>작성자 : {{ content.user.nickname }}</h5>
-      <h5>작성일자 : {{ content.date }}</h5>
-      <el-button plain v-on:click="link">링크 복사</el-button>
-      <div class="row content">
-        <div class="col" v-html="content.data">
+    <div class="main-box container">
+      <div :id="content.permanent_id" class="data container" :class="{ expand: !isExpand }" v-if="content" ref="contentBox">
+        <p class="title">{{ content.title }}</p>
+        <span class="writer">{{ content.user.nickname }}</span>
+        <span class="created-at">{{ content.date }}</span>
+        <div class="row content">
+          <div class="col" v-html="content.data">
+          </div>
+        </div>
+        <div style="display: flex; justify-content: center; margin-bottom:20px;">
+          <iframe class="ad" :width="this.width" :height="this.height" allowtransparency="true" :src="this.source" frameborder="0" scrolling="no"></iframe>
+        </div>
+        <el-button plain v-on:click="like" class="btn btn-primary">좋아요 {{ this.likesCount }}</el-button>
+        <el-button plain v-on:click="unlike" class="btn btn-primary">싫어요 {{ this.unlikesCount }}</el-button>
+
+        <div class="comments">
+          <Comment :comment="comment" v-for="comment in comments" :key="comment.id" />
+          <el-input placeholder="댓글" v-model="commentData" class="input-with-select">
+            <el-button slot="append" icon="el-icon-circle-plus-outline" v-on:click="addComment"></el-button>
+          </el-input>
+          <el-button icon="el-icon-circle-plus-outline" v-on:click="loadComment">댓글 더 보기</el-button>
+          <div style="display: flex; justify-content: center; margin-top: 15px;">
+            <iframe class="ad" :width="this.width" :height="this.height" allowtransparency="true" :src="this.source" frameborder="0" scrolling="no"></iframe>
+          </div>
         </div>
       </div>
-      <div style="display: flex; justify-content: center; margin-bottom:20px;">
-        <iframe class="ad" :width="this.width" :height="this.height" allowtransparency="true" :src="this.source" frameborder="0" scrolling="no"></iframe>
-      </div>
-      <el-button plain v-on:click="link" class="btn btn-primary">링크 복사</el-button>
-      <el-button plain v-on:click="like" class="btn btn-primary">좋아요 {{ this.likesCount }}</el-button>
-      <el-button plain v-on:click="unlike" class="btn btn-primary">싫어요 {{ this.unlikesCount }}</el-button>
-
-      <div class="comments">
-        <Comment :comment="comment" v-for="comment in comments" :key="comment.id" />
-        <el-input placeholder="댓글" v-model="commentData" class="input-with-select">
-          <el-button slot="append" icon="el-icon-circle-plus-outline" v-on:click="addComment"></el-button>
-        </el-input>
-        <el-button icon="el-icon-circle-plus-outline" v-on:click="loadComment">댓글 더 보기</el-button>
-        <div style="display: flex; justify-content: center; margin-top: 15px;">
-          <iframe class="ad" :width="this.width" :height="this.height" allowtransparency="true" :src="this.source" frameborder="0" scrolling="no"></iframe>
+      
+      <div v-if="!isExpand">
+        <div plain v-on:click="open" class="btn load-more">
+          <div class="btn-load-more"><span>더 보기 <i class="fas fa-xs fa-chevron-down" style="width: 10px; height: 6px;"></i></span></div>
+          <div plain v-on:click="link" class="btn btn-primary link"><span><i class="fas fa-md fa-paperclip"></i> Copy Link</span></div>
         </div>
       </div>
     </div>
-    
-    <el-button plain v-on:click="open" v-if="!isExpand" class="btn btn-primary">더 보기</el-button>
   </div>
 </template>
 
@@ -186,6 +191,8 @@ export default {
         }
         document.execCommand('copy');
         document.body.removeChild(el);
+
+        event.stopPropagation();
       }
 
       copyText(window.location.host + '/' + this.pid);
@@ -213,27 +220,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-button#ward {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
-div.data {
+div.main-box {
   width: 100vw;
   max-width: 800px;
   height: 100%;
   background-color: white;
   padding-bottom: 2rem;
+  padding: 0;
 }
 
 div.expand {
-  height: 300px;
+  height: 180px;
   overflow: auto;
   overflow-y: hidden;
 }
 
 div.content {
-  padding-top: 2rem;
+  padding-top: 20px;
 }
 
 div.comments {
@@ -255,7 +258,68 @@ button.btn-primary#addComment {
   margin-left: 0px;
 }
 
+div.load-more {
+  position: relative;
+  padding: 0;
+  width: 100%;
+  height: 50px;
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 0;
+}
+
+div.btn-load-more {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+div.link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 10px;
+  bottom: 0;
+  top: 0;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  /*padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 6px;
+  padding-bottom: 6px; */
+  border-radius: 4px;
+  border-color: transparent !important;
+  background-color: #0b9ef2;
+  color: white;
+}
+
 .gray {
   background-color: white;
+}
+
+div.data {
+  padding: 21px;
+}
+
+p.title {
+  font-size: 24px;
+  margin-bottom: 11px;
+}
+
+span.writer {
+  font-size: 16px;
+}
+
+span.created-at {
+  font-size: 16px;
+  float: right;
 }
 </style>

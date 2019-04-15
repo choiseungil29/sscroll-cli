@@ -52,6 +52,11 @@ export default {
 </script>
 
 <style scoped>
+
+div.main {
+  margin-top: 50px;
+}
+
 hr {
   height: 6px;
   border: 0;
