@@ -3,7 +3,7 @@
     <div class="main">
       <el-input placeHolder="게시물 제목" v-model="title" class="input" />
       <editor :options="editorOptions" mode="wysiwyg" ref="tuiEditor" />
-      <el-button v-on:click="addBoard" style="width: 100%;"">게시</el-button>
+      <el-button v-on:click="addBoard" style="width: 100%;">게시</el-button>
     </div>
   </div>
 </template>
