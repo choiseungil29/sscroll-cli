@@ -227,6 +227,8 @@ div.main-box {
   background-color: white;
   padding-bottom: 2rem;
   padding: 0;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+  margin-top: 1px;
 }
 
 div.expand {
@@ -291,10 +293,6 @@ div.link {
   margin-bottom: 10px;
   padding-top: 0px;
   padding-bottom: 0px;
-  /*padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 6px;
-  padding-bottom: 6px; */
   border-radius: 4px;
   border-color: transparent !important;
   background-color: #0b9ef2;
@@ -306,7 +304,7 @@ div.link {
 }
 
 div.data {
-  padding: 21px;
+  padding: 20px;
 }
 
 p.title {
