@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import _ from 'lodash';
 import contentStore from '../store/modules/contents';
 import * as getters from '../store/modules/contents/getters';
 import * as actions from '../store/modules/contents/types';
@@ -42,7 +43,11 @@ export default {
   },
 
   computed: {
-    ...contentStore.mapGetters({ 'boards': getters.BOARDS }),
+    ...contentStore.mapGetters([ getters.BOARDS ]),
+
+    boards() {
+      return _.orderBy(this[getters.BOARDS], 'created_at', 'desc');
+    },
   },
 
   methods: {
