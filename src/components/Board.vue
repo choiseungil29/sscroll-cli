@@ -1,5 +1,7 @@
 <template>
-  <Content :pid="this.id" />
+  <div class="main">
+    <Content :pid="this.id" />
+  </div>
 </template>
 
 <script>
@@ -34,13 +36,6 @@ export default {
 <style scoped>
 
 div.main {
-  text-align: center;
-  margin-top: 20px;
-}
-
-div.data {
-  display: inline-block;
-  width: 100%;
-  max-width: 1080px;
+  margin-top: 50px;
 }
 </style>
