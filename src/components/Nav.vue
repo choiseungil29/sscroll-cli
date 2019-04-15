@@ -1,11 +1,8 @@
 <template>
   <nav id="header" class="navbar navbar-dark sticky-top navbar-expand-lg">
     <router-link to='/' class="navbar-brand" @click.native="reset"><span class="title">쓰끄롤</span></router-link>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="nav navbar-nav ml-auto">
+    <div class="navbar nav" id="navbarNav">
+      <ul class="navbar-nav">
         <li><router-link to='/boards' class="nav-link"><span>익명 게시판</span></router-link></li>
         <li><router-link to='/logs' class="nav-link"><span>내 사용기록</span></router-link></li>
       </ul>
