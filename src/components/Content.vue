@@ -152,6 +152,8 @@ export default {
         setTimeout((e) => {
           expandStyle.maxHeight = '100%';
         }, this.getAnimationSeconds() * 1000)
+      } else {
+        this.expandStyle.maxHeight = '100%';
       }
     },
 
