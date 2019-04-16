@@ -34,15 +34,6 @@
             <v-card-text v-for="c in user.contents" :key="c.id">{{ c.title }}</v-card-text>
           </v-tab-item>
         </v-tabs>
-          <!-- <v-tab v-for="n in 3" :key="n" ripple>
-            Item {{ n }}
-          </v-tab>
-          <v-tab-item v-for="n in 3" :key="n">
-            <v-card flat>
-              <v-card-text>모야모야 {{ n }}</v-card-text>
-            </v-card>
-          </v-tab-item>
-        </v-tabs> -->
       </div>
     </div>
   </div>

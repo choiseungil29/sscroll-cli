@@ -1,14 +1,15 @@
 <template>
-  <div class="box">
-    <div>
-      <p>작성자: {{ comment.user.nickname }}</p>
-      <p>{{ comment.data }} {{ comment.date }}</p>
-      <el-button v-on:click="visibilityComment">댓댓 달기</el-button>
+  <div class="box" :class='{ child: isChild }'>
+    <div class='text'>
+      <p class='title'>{{ comment.user.nickname }}</p>
+      <p class='description'>{{ comment.data }}</p>
+      <p class='date'>{{ comment.date }}</p>
+      <!-- <el-button v-on:click="visibilityComment">댓댓 달기</el-button> -->
       <el-input ref="commentBox" type="text" placeholder="댓글" v-model="commentData" class="input-with-select" :class="{ visible: !visibility }">
         <el-button slot="append" icon="el-icon-circle-plus-outline" v-on:click="addComment"></el-button>
       </el-input>
     </div>
-    <Comment v-for="child in comment.children" :comment="child" :key="child.id" />
+    <Comment v-for="child in comment.children" :isChild='true' :comment="child" :key="child.id" />
   </div>
 </template>
 
@@ -22,6 +23,11 @@ export default {
   props: {
     comment: {
       type: Object
+    },
+
+    isChild: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -62,8 +68,37 @@ export default {
 <style scoped>
 
 .box {
-  border: 1px solid blue;
-  padding-left: 10px;
+  border-top: 1px solid #bbbbbb80;
+
+}
+
+.box .text {
+  margin-left: 20px;
+  margin-right: 20px;
+  padding-bottom: 16px;
+}
+
+.box .child {
+  background-color: #f5f5f5;
+}
+
+p.title {
+  font-size: 14px !important;
+  margin-top: 14px;
+  color: #0b9ef2;
+}
+
+p.description {
+  font-size: 12px;
+  margin-top: 14px;
+  color: #151515;
+}
+
+p.date {
+  font-size: 2px;
+  color: black;
+  opacity: 0.5;
+  margin-bottom: 0;
 }
 
 .visible {

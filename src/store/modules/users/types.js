@@ -2,4 +2,4 @@
 export const NAMESPACE = 'users';
 
 // actions with mutations
-export const FETCH = 'FETCH';
+export const FETCH = 'USER_FETCH';

@@ -12,6 +12,11 @@
 import contentStore from '../store/modules/contents'
 import * as actions from '../store/modules/contents/types';
 import * as getters from '../store/modules/contents/getters';
+
+import userStore from '../store/modules/users';
+import * as userActions from '../store/modules/users/types';
+import * as userGetters from '../store/modules/users/getters';
+
 import Content from './Content'
 
 export default {
@@ -35,7 +40,8 @@ export default {
   },
 
   methods: {
-    ...contentStore.mapActions([actions.FETCH_ALL, actions.FETCH]),
+    ...contentStore.mapActions([actions.FETCH, actions.FETCH_ALL]),
+    ...userStore.mapActions([userActions.FETCH]),
 
     loadMore() {
       this[actions.FETCH_ALL]();
@@ -43,6 +49,7 @@ export default {
   },
 
   created() {
+    this[userActions.FETCH]();
     if (this.$route.params.pid) {
       this[actions.FETCH](this.$route.params.pid);
     }
