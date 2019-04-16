@@ -1,5 +1,16 @@
 <template>
-  <nav id="header" class="navbar navbar-dark sticky-top navbar-expand-lg">
+  <div id="header" class="navbar">
+    <router-link to='/' class="navbar-brand" @click.native='reset'><span class="title">쓰끄롤</span></router-link>
+    <div style='display: flex; justify-content: flext-start;'>
+      <router-link to='/boards' class='nav-link'><span>익명 게시판</span></router-link>
+      <router-link to='/logs' class='nav-link'><span>내 사용기록</span></router-link>
+      <!-- <ul class='navbar-nav'>
+        <li><router-link to='/boards' class='nav-link'><span>익명 게시판</span></router-link></li>
+        <li><router-link to='/logs' class='nav-link'><span>내 사용기록</span></router-link></li>
+      </ul> -->
+    </div>
+  </div>
+  <!-- <nav id="header" class="navbar navbar-dark sticky-top navbar-expand-lg">
     <router-link to='/' class="navbar-brand" @click.native="reset"><span class="title">쓰끄롤</span></router-link>
     <div class="navbar nav" id="navbarNav">
       <ul class="navbar-nav">
@@ -7,7 +18,7 @@
         <li><router-link to='/logs' class="nav-link"><span>내 사용기록</span></router-link></li>
       </ul>
     </div>
-  </nav>
+  </nav> -->
   <!-- <el-menu
     :default-active="1"
     class="el-menu"
@@ -34,7 +45,7 @@ export default {
 </script>
 
 <style scoped>
-nav#header {
+div#header {
   position: fixed;
   background-color: #fff;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
@@ -44,13 +55,26 @@ nav#header {
   height: 50px;
   z-index: 1021;
   transition: all 0.5s;
+  justify-content: flex-start;
 }
 
 span.title {
   color: #242424;
 }
 
-li span {
+a span {
   color: rgba(36, 36, 36, 0.7);
+}
+
+a.navbar-brand {
+}
+
+a.nav-link {
+  padding-left: 7px;
+  padding-right: 7px;
+}
+
+ul {
+  justify-content: flex-start;
 }
 </style>
