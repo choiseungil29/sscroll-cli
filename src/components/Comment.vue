@@ -95,7 +95,7 @@ p.description {
 }
 
 p.date {
-  font-size: 2px;
+  font-size: 12px;
   color: black;
   opacity: 0.5;
   margin-bottom: 0;
