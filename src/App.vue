@@ -20,6 +20,6 @@ export default {
 
 <style scoped>
 div {
-  background-color: #CFCFCF;
+  background-color: #fbfbfb;
 }
 </style>

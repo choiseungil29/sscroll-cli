@@ -28,7 +28,9 @@
             <el-button slot="append" v-on:click="addComment">등록</el-button>
           </el-input>
           <Comment :comment="comment" v-for="comment in comments" :key="comment.id" ></Comment>
-          
+          <el-input v-if="comments.length > 0" placeholder="댓글을 입력해주세요" v-model="commentData" class="input-with-select add-comment" style="padding-top: 15px; border-top: 1px solid #bbbbbb80;">
+            <el-button slot="append" v-on:click="addComment">등록</el-button>
+          </el-input>
           <el-button class='load-comment' v-on:click="loadComment">댓글 더 보기</el-button>
           <!-- <div style="display: flex; justify-content: center; margin-top: 15<px;">
             <iframe class="ad" :width="this.width" :height="this.height" allowtransparency="true" :src="this.source" frameborder="0" scrolling="no"></iframe>
@@ -152,6 +154,7 @@ export default {
     },
 
     isLike() {
+      console.log(this[userGetters.USER]);
       return this[getters.IS_LIKE](this.pid, this[userGetters.USER].nickname);
     },
 
@@ -400,7 +403,7 @@ div.buttons .direction {
   display: flex;
   align-items: center;
   line-height: 0;
-  min-width: 80px;
+  // min-width: 80px;
   width: auto;
   height: 30px;
   font-size: 14px;

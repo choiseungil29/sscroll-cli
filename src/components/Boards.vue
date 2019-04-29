@@ -1,10 +1,25 @@
 <template>
-  <div style="height: 100%;">
+  <div style="height: 100%; padding-top: 50px;">
     <div class="main">
+      <div style="text-align: left; padding-top: 11px; padding-bottom: 11px; padding-left: 21px; background-color: #0b9ef2;">
+        <span class="title">전체게시판</span>
+      </div>
       <div class="data">
-        <h3>자유게시판</h3>
-        <el-button v-on:click="createBoard">글 작성하기</el-button>
-        <table class="table table-hover table-bordered">
+        
+        <!-- <el-button v-on:click="createBoard">글 작성하기</el-button> -->
+        <div v-for="board in boards" :key="board.id">
+          <router-link :to="{ name: 'board', params: { bid: board.permanent_id } }">
+            <div style="text-align: left; padding-top: 15px;">
+              <span style="font-size: 16px; color: #161616;">{{ board.title }}</span>
+              <span style="margin-left: 6px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.sscroll.net/upload/resources/ic-chat.png" class='icon'> {{ board.comments_length }}</span>
+            </div>
+            <div style="text-align: left; padding-bottom: 16px; border-bottom: 1px solid #bbbbbb;">
+              <span style="color: rgba(21, 21, 21, 0.5);">{{ board.date }}</span>
+              <span style="color: rgba(21, 21, 21, 0.5); margin-left: 19px;">조회 {{ board.viewed }}</span>
+            </div>
+          </router-link>
+        </div>
+        <!-- <table class="table table-hover table-bordered">
           <thead>
             <tr>
               <th scope="col" style="width: 17%;">번호</th>
@@ -17,7 +32,7 @@
               <th scope="row" style="text-align: left;"><router-link :to="{ name: 'board', params: { bid: board.permanent_id } }">{{ board.title }}</router-link></th>
             </tr>
           </tbody>
-        </table>
+        </table> -->
       </div>
     </div>
   </div>
@@ -66,12 +81,12 @@ div.main {
 }
 
 div.data {
-  background-color: white;
+  /* background-color: white; */
   display: inline-block;
   width: 100%;
   max-width: 1080px;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding-left: 21px;
+  padding-right: 21px;
 }
 
 h3 {
@@ -82,8 +97,9 @@ h3 {
   margin-bottom: 1rem;
 }
 
-div {
-  height: 100%;
+span.title {
+  font-size: 16px !important;
+  line-height: 0 !important;
+  color: white;
 }
-
 </style>
