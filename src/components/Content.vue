@@ -16,8 +16,8 @@
         </div> -->
 
         <div class='buttons'>
-          <div v-on:click="like" class="btn btn-primary like"><img :src='this.isLike ? this.likeActive : this.likeDeactive' class='icon'/> <span> {{ this.likesCount }}</span></div>
-          <div v-on:click="unlike" class="btn btn-primary like" style="margin-left: 4px;"> <img :src="this.isDislike ? this.dislikeActive : this.dislikeDeactive" class='icon'> <span> {{ this.unlikesCount }}</span></div>
+          <div v-on:click="like" class="btn btn-primary direction" :class="{ like: isLike }"><img :src='this.isLike ? this.likeActive : this.likeDeactive' class='icon'/> <span> {{ this.likesCount }}</span></div>
+          <div v-on:click="unlike" class="btn btn-primary direction" :class="{ dislike: isDislike }" style="margin-left: 4px;"> <img :src="this.isDislike ? this.dislikeActive : this.dislikeDeactive" class='icon'> <span> {{ this.unlikesCount }}</span></div>
           <div style="width: 100%;">
             <div plain v-on:click="link" class="btn btn-primary copy-link" style='float: right;'><span><i class="fas fa-md fa-paperclip"></i> Copy Link</span></div>
           </div>
@@ -396,7 +396,7 @@ div.buttons div.copy-link {
   color: white;
 }
 
-div.buttons .like {
+div.buttons .direction {
   display: flex;
   align-items: center;
   line-height: 0;
@@ -410,6 +410,14 @@ div.buttons .like {
   color: #15151580;
   border: 1px solid #15151580;
   border-radius: 4px;
+}
+
+div.buttons .like {
+  border: 1px solid #42e00b;
+}
+
+div.buttons .dislike {
+  border: 1px solid #e11b29;
 }
 
 .load-comment {

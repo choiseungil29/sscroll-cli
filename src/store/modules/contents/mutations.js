@@ -48,10 +48,12 @@ export default {
   [mutations.LIKE_CONTENT](state, { contentPid, replaceContent }) {
     let content = state.contents.find(c => c.permanent_id === contentPid);
     content.ups = replaceContent.ups;
+    content.downs = replaceContent.downs;
   },
 
   [mutations.UNLIKE_CONTENT](state, { contentPid, replaceContent }) {
     let content = state.contents.find(c => c.permanent_id === contentPid);
+    content.ups = replaceContent.ups;
     content.downs = replaceContent.downs;
   }
 }
