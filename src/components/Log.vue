@@ -18,7 +18,7 @@
           <!-- <v-tab :key="comments" ripple>
             댓글
           </v-tab> -->
-          <v-tab-item :key="viewed">
+          <v-tab-item :key="viewed" style="">
             <div v-for="board in user.recent" :key="board.id" style="padding-left: 20px; padding-right: 20px;">
               <router-link :to="{ name: 'board', params: { bid: board.content.permanent_id } }">
                 <div style="text-align: left; padding-top: 15px;">
@@ -26,7 +26,7 @@
                   <span style="margin-left: 6px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.sscroll.net/upload/resources/ic-chat.png" class='icon'> {{ board.content.comments_length }}</span>
                 </div>
                 <div style="text-align: left; padding-bottom: 16px; border-bottom: 1px solid #bbbbbb;">
-                  <span style="color: rgba(21, 21, 21, 0.5);">{{ board.content.date }}</span>
+                  <span style="color: rgba(21, 21, 21, 0.5);">{{ board.date }}</span>
                   <span style="color: rgba(21, 21, 21, 0.5); margin-left: 19px;">조회 {{ board.content.viewed }}</span>
                 </div>
               </router-link>
@@ -132,6 +132,10 @@ div.main {
 div.data {
   display: inline-block;
   width: 100%;
+  /* max-width: 1080px; */
+}
+
+div.v-window {
   max-width: 1080px;
 }
 </style>
