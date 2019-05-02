@@ -125,7 +125,10 @@ export default {
       let c = this[getters.BY_ID](this.pid);
       if (c && c.type.name === 'SSCROLL_BOARD') {
         // this.isExpand = true;
-        this.open()
+        this.open();
+      }
+      if (window.location.href.includes(this.pid)) {
+        this.open();
       }
       return c;
     },

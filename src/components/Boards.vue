@@ -1,8 +1,10 @@
 <template>
   <div style="height: 100%; padding-top: 50px;">
     <div class="main">
-      <div style="text-align: left; padding-top: 11px; padding-bottom: 11px; padding-left: 21px; background-color: #0b9ef2;">
-        <span class="title">전체게시판</span>
+      <div style="display: flex; align-items: center; text-align: left; height: 38px; padding-left: 21px; background-color: #0b9ef2;">
+        <div>
+          <span class="title">전체게시판</span>
+        </div>
       </div>
       <div class="data">
         
@@ -19,20 +21,6 @@
             </div>
           </router-link>
         </div>
-        <!-- <table class="table table-hover table-bordered">
-          <thead>
-            <tr>
-              <th scope="col" style="width: 17%;">번호</th>
-              <th scope="col" style="text-align: left;">제목</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="board in boards" :key="board.id">
-              <th scope="row">{{ board.id }}</th>
-              <th scope="row" style="text-align: left;"><router-link :to="{ name: 'board', params: { bid: board.permanent_id } }">{{ board.title }}</router-link></th>
-            </tr>
-          </tbody>
-        </table> -->
       </div>
     </div>
   </div>

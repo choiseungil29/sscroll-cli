@@ -1,9 +1,11 @@
 <template>
   <div id="header" class="navbar">
     <router-link to='/' class="navbar-brand" @click.native='reset'><span class="title">쓰끄롤</span></router-link>
-    <div style='display: flex; justify-content: flext-start;'>
+    <div style='display: inline-block;'>
       <router-link to='/boards' class='nav-link' :class="{ boards: isBoards }"><span>익명 게시판</span></router-link>
-      <router-link to='/logs' class='nav-link logs'><span>내 사용기록</span></router-link>
+    </div>
+    <div style="display: inline-block; float: right;">
+      <router-link to='/logs' class='nav-link logs'><img src="https://s3-ap-northeast-1.amazonaws.com/img.sscroll.net/upload/resources/ic-main-history.png"></router-link>
     </div>
   </div>
 </template>
@@ -36,6 +38,7 @@ export default {
 
 <style scoped>
 div#header {
+  display: inline-block;
   position: fixed;
   background-color: #fff;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
@@ -67,6 +70,10 @@ a span {
 a.nav-link {
   padding-left: 7px;
   padding-right: 7px;
+}
+
+.nav-link {
+  display: inline-block;
 }
 
 ul {
