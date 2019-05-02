@@ -19,7 +19,7 @@
           <div v-on:click="like" class="btn btn-primary direction" :class="{ like: isLike }"><img :src='this.isLike ? this.likeActive : this.likeDeactive' class='icon'/> <span> {{ this.likesCount }}</span></div>
           <div v-on:click="unlike" class="btn btn-primary direction" :class="{ dislike: isDislike }" style="margin-left: 4px;"> <img :src="this.isDislike ? this.dislikeActive : this.dislikeDeactive" class='icon'> <span> {{ this.unlikesCount }}</span></div>
           <div style="width: 100%;">
-            <div plain v-on:click="link" class="btn btn-primary copy-link" style='float: right;'><span><i class="fas fa-md fa-paperclip"></i> Copy Link</span></div>
+            <div plain v-on:click="link" class="btn btn-primary copy-link" style='float: right;'><span><img style="width: auto;" src="https://s3-ap-northeast-1.amazonaws.com/img.sscroll.net/upload/resources/ic-main-link.png"> Copy Link</span></div>
           </div>
         </div>
 
@@ -28,10 +28,7 @@
             <el-button slot="append" v-on:click="addComment">등록</el-button>
           </el-input>
           <Comment :comment="comment" v-for="comment in comments" :key="comment.id" ></Comment>
-          <el-input v-if="comments.length > 0" placeholder="댓글을 입력해주세요" v-model="commentData" class="input-with-select add-comment" style="padding-top: 15px; border-top: 1px solid #bbbbbb80;">
-            <el-button slot="append" v-on:click="addComment">등록</el-button>
-          </el-input>
-          <el-button class='load-comment' v-on:click="loadComment">댓글 더 보기</el-button>
+          <el-button class='load-comment' v-on:click="loadComment" v-if="comments.length > 0">댓글 더 보기</el-button>
           <!-- <div style="display: flex; justify-content: center; margin-top: 15<px;">
             <iframe class="ad" :width="this.width" :height="this.height" allowtransparency="true" :src="this.source" frameborder="0" scrolling="no"></iframe>
           </div> -->
@@ -41,7 +38,7 @@
       <div v-if="!isExpand">
         <div plain v-on:click="open" class="btn load-more">
           <div class="btn-load-more"><span>더 보기 <i class="fas fa-xs fa-chevron-down"></i></span></div>
-          <div plain v-on:click="link" class="btn btn-primary link"><span><i class="fas fa-md fa-paperclip"></i> Copy link</span></div>
+          <div plain v-on:click="link" class="btn btn-primary link"><span><img style="width: auto;" src="https://s3-ap-northeast-1.amazonaws.com/img.sscroll.net/upload/resources/ic-main-link.png"> Copy link</span></div>
         </div>
       </div>
     </div>
@@ -150,7 +147,7 @@ export default {
     },
 
     full_comments() {
-      return _.orderBy(this.content.comments.filter(c => !c.parent_id), 'created_at', 'asc'); // 1차 댓글만 표현함
+      return _.orderBy(this.content.comments.filter(c => !c.parent_id), 'created_at', 'desc'); // 1차 댓글만 표현함
     },
 
     isLike() {
@@ -180,6 +177,10 @@ export default {
       } else {
         this.expandStyle.maxHeight = '100%';
       }
+    },
+
+    openAll(event) {
+
     },
 
     like(event) {

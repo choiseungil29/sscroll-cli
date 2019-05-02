@@ -1,15 +1,21 @@
 <template>
   <div class="box" :class='{ child: isChild }'>
-    <div class='text'>
-      <p class='title'>{{ comment.user.nickname }}</p>
-      <p class='description'>{{ comment.data }}</p>
-      <p class='date'>{{ comment.date }}</p>
+    <div class='text' :class='{ child: isChild }'>
+      <p class='title'><img v-if="isChild" style="width: auto; margin-right: 10px;" src="https://s3-ap-northeast-1.amazonaws.com/img.sscroll.net/upload/resources/ic-reply.png">{{ comment.user.nickname }}</p>
+      <p class='description' :style="{ marginLeft: childMargin }">{{ comment.data }}</p>
+      <div :style="{ marginLeft: childMargin }" style="padding-bottom: 16px;">
+        <span class='date'>{{ comment.date }}</span>
+        <span v-if="!isChild" style="float: right; font-size: 12px;" @click="visibilityComment">답글 달기</span>
+      </div>
       <!-- <el-button v-on:click="visibilityComment">댓댓 달기</el-button> -->
-      <el-input ref="commentBox" type="text" placeholder="댓글" v-model="commentData" class="input-with-select" :class="{ visible: !visibility }">
-        <el-button slot="append" icon="el-icon-circle-plus-outline" v-on:click="addComment"></el-button>
+      
+    </div>
+    <Comment v-for="child in comment.children" :isChild="true" :comment="child" :key="child.id" />
+    <div class="input-place" :class="{ visible: !visibility }">
+      <el-input placeholder="답글을 입력해주세요" v-model="commentData" class="input-with-select add-comment" >
+        <el-button slot="append" v-on:click="addComment">등록</el-button>
       </el-input>
     </div>
-    <Comment v-for="child in comment.children" :isChild='true' :comment="child" :key="child.id" />
   </div>
 </template>
 
@@ -32,12 +38,25 @@ export default {
   },
 
   created() {
+    
+  },
+
+  mounted() {
   },
 
   data() {
     return {
       visibility: false,
-      commentData: ''
+      commentData: '',
+    }
+  },
+
+  computed: {
+    childMargin() {
+      if (this.isChild) {
+        return '14px';
+      }
+      return '0px;'
     }
   },
 
@@ -47,7 +66,7 @@ export default {
     visibilityComment(e) {
       this.visibility = !this.visibility;
       if (this.visibility) {
-        this.commentData = '@' + this.comment.user.nickname + ' ';
+        // this.commentData = '@' + this.comment.user.nickname + ' ';
       } else {
         this.commentData = '';
       }
@@ -65,7 +84,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 .box {
   border-top: 1px solid #bbbbbb80;
@@ -75,11 +94,12 @@ export default {
 .box .text {
   margin-left: 20px;
   margin-right: 20px;
-  padding-bottom: 16px;
 }
 
 .box .child {
   background-color: #f5f5f5;
+  padding-left: 5px;
+  margin-left: 0;
 }
 
 p.title {
@@ -94,7 +114,7 @@ p.description {
   color: #151515;
 }
 
-p.date {
+span.date {
   font-size: 12px;
   color: black;
   opacity: 0.5;
@@ -105,4 +125,31 @@ p.date {
   display: none;
 }
 
+.add-comment {
+  // width: 100%;
+  /*padding-left: 10px;
+  padding-right: 10px; */
+  // padding-bottom: 15px;
+  // display: inline;
+}
+
+.add-comment /deep/ input {
+  border: 1px solid #15151580;
+}
+
+.add-comment /deep/ div {
+  border: 1px solid transparent;
+  border-left: none;
+  background-color: #15151580;
+  color: white;
+}
+
+div.input-place {
+  border-top: 1px solid #bbbbbb80;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: #f0f0f0;
+  padding-left: 20px;
+  padding-right: 20px;
+}
 </style>

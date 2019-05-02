@@ -2,8 +2,8 @@
   <div id="header" class="navbar">
     <router-link to='/' class="navbar-brand" @click.native='reset'><span class="title">쓰끄롤</span></router-link>
     <div style='display: flex; justify-content: flext-start;'>
-      <router-link to='/boards' class='nav-link'><span>익명 게시판</span></router-link>
-      <router-link to='/logs' class='nav-link'><span>내 사용기록</span></router-link>
+      <router-link to='/boards' class='nav-link' :class="{ boards: isBoards }"><span>익명 게시판</span></router-link>
+      <router-link to='/logs' class='nav-link logs'><span>내 사용기록</span></router-link>
     </div>
   </div>
 </template>
@@ -18,6 +18,18 @@ export default {
   },
 
   methods: {
+    reset(e) {
+      // window.location.href = 'http://' + window.location.host;
+      if (window.location.href.endsWith('/')) {
+        // window.location.reload();
+      }
+    }
+  },
+
+  data() {
+    return {
+      location: window.location,
+    }
   }
 }
 </script>
@@ -34,6 +46,14 @@ div#header {
   z-index: 1021;
   transition: all 0.5s;
   justify-content: flex-start;
+}
+
+.nav-link span {
+  color: #242424;
+}
+
+.boards span {
+  color: #0b9ef2;
 }
 
 span.title {
