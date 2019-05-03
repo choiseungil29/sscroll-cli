@@ -18,5 +18,9 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+.btn.btn-primary:active
+{
+    background-color: gray !important; /* add here any color */
+}
 </style>

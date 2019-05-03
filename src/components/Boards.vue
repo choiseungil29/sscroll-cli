@@ -21,6 +21,9 @@
             </div>
           </router-link>
         </div>
+        <div>
+          <el-button class='write-content' v-on:click="createBoard">글쓰기</el-button>
+        </div>
       </div>
     </div>
   </div>
@@ -89,5 +92,12 @@ span.title {
   font-size: 16px !important;
   line-height: 0 !important;
   color: white;
+}
+
+.write-content {
+  margin-top: 38px;
+  font-size: 14px;
+  color: rgba(21, 21, 21, 0.8);
+  border: solid 1px #151515;
 }
 </style>
