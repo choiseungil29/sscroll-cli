@@ -186,7 +186,7 @@ export default {
     },
 
     like(event) {
-      this[actions.LIKE_CONTENT]({ contentPid: this.pid })
+      this[actions.LIKE_CONTENT]({ contentPid: this.pid, user: this[userGetters.USER] })
     },
 
     unlike(event) {

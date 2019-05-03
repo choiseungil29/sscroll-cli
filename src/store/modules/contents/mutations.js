@@ -54,15 +54,25 @@ export default {
     state.contents.push(board);
   },
 
-  [mutations.LIKE_CONTENT](state, { contentPid, replaceContent }) {
+  [mutations.LIKE_CONTENT](state, { contentPid, replaceContent, user }) {
     let content = state.contents.find(c => c.permanent_id === contentPid);
-    content.ups = replaceContent.ups;
-    content.downs = replaceContent.downs;
+    if (user) {
+      content.ups.push(user);
+    } else if (replaceContent) {
+      content.ups = replaceContent.ups;
+      content.downs = replaceContent.downs;
+    }
+    
   },
 
-  [mutations.UNLIKE_CONTENT](state, { contentPid, replaceContent }) {
+  [mutations.UNLIKE_CONTENT](state, { contentPid, replaceContent, user }) {
     let content = state.contents.find(c => c.permanent_id === contentPid);
-    content.ups = replaceContent.ups;
-    content.downs = replaceContent.downs;
+    if (user) {
+      content.downs.push(user);
+    } else if (replaceContent) {
+      content.ups = replaceContent.ups;
+      content.downs = replaceContent.downs;
+    }
+    
   }
 }

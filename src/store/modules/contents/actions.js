@@ -57,20 +57,18 @@ export default {
     axios.post(`/api/contents/${contentPid}/view`);
   },
 
-  [actions.LIKE_CONTENT]({ commit }, { contentPid }) {
-    commit(actions.LIKE_CONTENT, { contentPid: contentPid, replaceContent: res.data });
+  [actions.LIKE_CONTENT]({ commit }, { contentPid, user }) {
+    commit(actions.LIKE_CONTENT, { contentPid: contentPid, user: user });
     axios.post(`/api/contents/${contentPid}/like`)
       .then(res => {
+        commit(actions.LIKE_CONTENT, { contentPid: contentPid, replaceContent: res.data });
       });
-    // TODO 1: content에반영
-    // TODO 2: content ui에 반영
-    // TODO 3: 취소기능 구현
   },
 
   [actions.UNLIKE_CONTENT]({ commit }, { contentPid }) {
-    commit(actions.UNLIKE_CONTENT, { contentPid: contentPid, replaceContent: res.data });
     axios.post(`/api/contents/${contentPid}/unlike`)
       .then(res => {
+        commit(actions.UNLIKE_CONTENT, { contentPid: contentPid, replaceContent: res.data });
       });
   },
 
