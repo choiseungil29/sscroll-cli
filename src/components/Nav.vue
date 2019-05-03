@@ -26,6 +26,7 @@ export default {
     reset(e) {
       this.default()
       this[actions.RESET]();
+      window.scroll(0, 0);
     },
 
     logs(e) {
