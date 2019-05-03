@@ -56,8 +56,17 @@ export default {
 
   [mutations.LIKE_CONTENT](state, { contentPid, replaceContent, user }) {
     let content = state.contents.find(c => c.permanent_id === contentPid);
+    let isUp = content.ups.find(u => u.nickname === user.nickname);
+    let isDown = content.downs.find(u => u.nickname === user.nickname);
     if (user) {
-      content.ups.push(user);
+      if (isUp) {
+        content.ups.pop(isUp);
+      } else {
+        content.ups.push(user);
+      }
+      if (isDown && !isUp) {
+        content.downs.pop(isDown);
+      }
     } else if (replaceContent) {
       content.ups = replaceContent.ups;
       content.downs = replaceContent.downs;
@@ -67,12 +76,28 @@ export default {
 
   [mutations.UNLIKE_CONTENT](state, { contentPid, replaceContent, user }) {
     let content = state.contents.find(c => c.permanent_id === contentPid);
+    let isUp = content.ups.find(u => u.nickname === user.nickname);
+    let isDown = content.downs.find(u => u.nickname === user.nickname);
+    if (user) {
+      if (isDown) {
+        content.downs.pop(isUp);
+      } else {
+        content.downs.push(user);
+      }
+      if (isUp && !isDown) {
+        content.ups.pop(isUp);
+      }
+    } else if (replaceContent) {
+      content.ups = replaceContent.ups;
+      content.downs = replaceContent.downs;
+    }
+    /* let content = state.contents.find(c => c.permanent_id === contentPid);
     if (user) {
       content.downs.push(user);
     } else if (replaceContent) {
       content.ups = replaceContent.ups;
       content.downs = replaceContent.downs;
-    }
+    } */
     
   }
 }

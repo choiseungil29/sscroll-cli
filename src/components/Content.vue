@@ -190,7 +190,7 @@ export default {
     },
 
     unlike(event) {
-      this[actions.UNLIKE_CONTENT]({ contentPid: this.pid })
+      this[actions.UNLIKE_CONTENT]({ contentPid: this.pid, user: this[userGetters.USER] })
     },
 
     ward(event) {

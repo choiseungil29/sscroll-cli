@@ -61,14 +61,15 @@ export default {
     commit(actions.LIKE_CONTENT, { contentPid: contentPid, user: user });
     axios.post(`/api/contents/${contentPid}/like`)
       .then(res => {
-        commit(actions.LIKE_CONTENT, { contentPid: contentPid, replaceContent: res.data });
+        // commit(actions.LIKE_CONTENT, { contentPid: contentPid, replaceContent: res.data });
       });
   },
 
-  [actions.UNLIKE_CONTENT]({ commit }, { contentPid }) {
+  [actions.UNLIKE_CONTENT]({ commit }, { contentPid, user }) {
+    commit(actions.UNLIKE_CONTENT, { contentPid: contentPid, user: user });
     axios.post(`/api/contents/${contentPid}/unlike`)
       .then(res => {
-        commit(actions.UNLIKE_CONTENT, { contentPid: contentPid, replaceContent: res.data });
+        // commit(actions.UNLIKE_CONTENT, { contentPid: contentPid, replaceContent: res.data });
       });
   },
 
