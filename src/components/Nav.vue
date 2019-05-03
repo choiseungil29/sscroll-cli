@@ -2,16 +2,17 @@
   <div id="header" class="navbar">
     <router-link to='/' class="navbar-brand" @click.native='reset'><span class="title">쓰끄롤</span></router-link>
     <div style='display: inline-block;'>
-      <router-link to='/boards' class='nav-link' :class="{ boards: isBoards }"><span>익명 게시판</span></router-link>
+      <router-link to='/boards' class='nav-link' @click.native='boards'><span :style="{ color: boardsColor }">익명 게시판</span></router-link>
     </div>
     <div style="display: inline-block; float: right;">
-      <router-link to='/logs' class='nav-link logs'><img src="https://s3-ap-northeast-1.amazonaws.com/img.sscroll.net/upload/resources/ic-main-history.png"></router-link>
+      <router-link to='/logs' class='nav-link logs' @click.native='logs'><img id='logs' style="width: 15px;" :src="logIcon"></router-link>
     </div>
   </div>
 </template>
 
 <script>
-import contentStore from '../store/modules/contents'
+import contentStore from '../store/modules/contents';
+import * as actions from '../store/modules/contents/types';
 
 export default {
   name: 'Nav',
@@ -20,17 +21,39 @@ export default {
   },
 
   methods: {
+    ...contentStore.mapActions([actions.RESET]),
+
     reset(e) {
-      // window.location.href = 'http://' + window.location.host;
-      if (window.location.href.endsWith('/')) {
-        // window.location.reload();
-      }
+      this.default()
+      this[actions.RESET]();
+    },
+
+    logs(e) {
+      this.default();
+      this.logIcon = this.logSelected;     
+    },
+
+    boards(e) {
+      this.default();
+      this.boardsColor = this.boardsSelected;
+    },
+
+    default() {
+      this.logIcon = this.logDefault;
+      this.boardsColor = this.boardsDefault;
     }
   },
 
   data() {
     return {
       location: window.location,
+      logIcon: 'https://s3-ap-northeast-1.amazonaws.com/img.sscroll.net/upload/resources/ic-main-history@2x.png',
+      logDefault: 'https://s3-ap-northeast-1.amazonaws.com/img.sscroll.net/upload/resources/ic-main-history@2x.png',
+      logSelected: 'https://s3-ap-northeast-1.amazonaws.com/img.sscroll.net/upload/resources/ic-main-history-s%402x.png',
+
+      boardsColor: '#242424',
+      boardsDefault: '#242424',
+      boardsSelected: '#0b9ef2',
     }
   }
 }

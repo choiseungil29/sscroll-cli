@@ -5,7 +5,9 @@
       <p class='description' :style="{ marginLeft: childMargin }">{{ comment.data }}</p>
       <div :style="{ marginLeft: childMargin }" style="padding-bottom: 16px;">
         <span class='date'>{{ comment.date }}</span>
-        <span v-if="!isChild" style="float: right; font-size: 12px;" @click="visibilityComment">답글 달기</span>
+        <div v-if="!isChild" style="float: right;">
+          <span class="reply" style="font-size: 12px; color: #0b9ef2" @click="visibilityComment">답글 달기</span>
+        </div>
       </div>
       <!-- <el-button v-on:click="visibilityComment">댓댓 달기</el-button> -->
       
@@ -142,6 +144,10 @@ span.date {
   border-left: none;
   background-color: #15151580;
   color: white;
+}
+
+span.reply:hover {
+  cursor: pointer;
 }
 
 div.input-place {

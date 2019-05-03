@@ -1,7 +1,7 @@
 <template> 
   <div>
     <div class="main-box container">
-      <div :id="content.permanent_id" class="data container" :class="{ expand: isExpand }" :style="expandStyle" v-if="content">
+      <div :id="content.permanent_id" class="data container" :class="{ expand: isExpand }" :style="expandStyle" v-if="content" style="overflow-x: hidden;">
         <div ref="contentBox" class='content-box'>
           <p class="title">{{ content.title }}</p>
           <span class="writer">{{ content.user.nickname }}</span>
@@ -19,7 +19,7 @@
           <div v-on:click="like" class="btn btn-primary direction" :class="{ like: isLike }"><img :src='this.isLike ? this.likeActive : this.likeDeactive' class='icon'/> <span> {{ this.likesCount }}</span></div>
           <div v-on:click="unlike" class="btn btn-primary direction" :class="{ dislike: isDislike }" style="margin-left: 4px;"> <img :src="this.isDislike ? this.dislikeActive : this.dislikeDeactive" class='icon'> <span> {{ this.unlikesCount }}</span></div>
           <div style="width: 100%;">
-            <div plain v-on:click="link" class="btn btn-primary copy-link" style='float: right;'><span><img style="width: 15px;" src="https://s3-ap-northeast-1.amazonaws.com/img.sscroll.net/upload/resources/ic-main-link@2x.png"> Copy Link</span></div>
+            <div plain v-on:click="link" class="btn btn-primary copy-link" style='float: right;'><span><img style="width: 14px;" src="https://s3-ap-northeast-1.amazonaws.com/img.sscroll.net/upload/resources/ic-main-link@2x.png"> Copy Link</span></div>
           </div>
         </div>
 
@@ -38,7 +38,7 @@
       <div v-if="!isExpand">
         <div plain v-on:click="open" class="btn load-more">
           <div class="btn-load-more"><span>더 보기 <i class="fas fa-xs fa-chevron-down"></i></span></div>
-          <div plain v-on:click="link" class="btn btn-primary link"><span><img style="width: 15px;" src="https://s3-ap-northeast-1.amazonaws.com/img.sscroll.net/upload/resources/ic-main-link@2x.png"> Copy link</span></div>
+          <div plain v-on:click="link" class="btn btn-primary link"><span style="line-height: 0;"><img style="width: 14px;" src="https://s3-ap-northeast-1.amazonaws.com/img.sscroll.net/upload/resources/ic-main-link@2x.png"> Copy link</span></div>
         </div>
       </div>
     </div>
@@ -154,7 +154,6 @@ export default {
     },
 
     isLike() {
-      console.log(this[userGetters.USER]);
       return this[getters.IS_LIKE](this.pid, this[userGetters.USER].nickname);
     },
 
@@ -223,6 +222,7 @@ export default {
       }
 
       copyText(window.location.host + '/' + this.pid);
+      alert('링크가 복사되었습니다!');
     },
 
     loadComment(event) {

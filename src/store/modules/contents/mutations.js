@@ -13,6 +13,15 @@ export default {
     }
   },
 
+  [mutations.RESET](state, items) {
+    state.contents = [];
+    for (let item of items) {
+      if (!state.contents.find(c => c.id === item.id)) {
+        state.contents.push(item);
+      }
+    }
+  },
+
   [mutations.FETCH_COMMENTS](state, { contentPid, items }) {
     let content = state.contents.find(c => c.permanent_id === contentPid)
     content.comments = [];

@@ -57,6 +57,7 @@ Vue.use(VueAnalytics, {
 })
 
 new Vue({
+  mode: 'history',
   router,
   render: h => h(App),
   store

@@ -17,6 +17,13 @@ export default {
       }).catch(err => console.log(err));
   },
 
+  [actions.RESET]({ commit }) {
+    axios.get(`/api/contents`)
+      .then(res => {
+        commit(actions.RESET, res.data);
+      }).catch(err => console.log(err));
+  },
+
   [actions.FETCH_COMMENTS]({ commit }, {contentPid }) {
     axios.get(`/api/contents/${contentPid}/comments`)
       .then(res => {
@@ -65,5 +72,7 @@ export default {
       .then(res => {
         commit(actions.UNLIKE_CONTENT, { contentPid: contentPid, replaceContent: res.data });
       });
-  }
+  },
+
+  
 }

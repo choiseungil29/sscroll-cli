@@ -38,5 +38,6 @@ export default {
 div.main {
   margin-top: 50px;
   background-color: rgb(207, 207, 207);
+  height: 100%;
 }
 </style>

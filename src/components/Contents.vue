@@ -1,5 +1,5 @@
 <template>
-  <div v-infinite-scroll="loadMore" infinite-scroll-distance="1920" class="main" style="background-color: #CFCFCF;">
+  <div v-infinite-scroll="loadMore" infinite-scroll-distance="960" class="main" style="background-color: #CFCFCF;">
     <div v-for="content in contents" :key="content.permanent_id">
       <div style="height: 100%;">
         <Content :pid="content.permanent_id" />
@@ -44,6 +44,7 @@ export default {
     ...userStore.mapActions([userActions.FETCH]),
 
     loadMore() {
+      console.log('load More');
       this[actions.FETCH_ALL]();
     }
   },
