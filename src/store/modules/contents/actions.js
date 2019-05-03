@@ -58,9 +58,9 @@ export default {
   },
 
   [actions.LIKE_CONTENT]({ commit }, { contentPid }) {
+    commit(actions.LIKE_CONTENT, { contentPid: contentPid, replaceContent: res.data });
     axios.post(`/api/contents/${contentPid}/like`)
       .then(res => {
-        commit(actions.LIKE_CONTENT, { contentPid: contentPid, replaceContent: res.data });
       });
     // TODO 1: content에반영
     // TODO 2: content ui에 반영
@@ -68,9 +68,9 @@ export default {
   },
 
   [actions.UNLIKE_CONTENT]({ commit }, { contentPid }) {
+    commit(actions.UNLIKE_CONTENT, { contentPid: contentPid, replaceContent: res.data });
     axios.post(`/api/contents/${contentPid}/unlike`)
       .then(res => {
-        commit(actions.UNLIKE_CONTENT, { contentPid: contentPid, replaceContent: res.data });
       });
   },
 
