@@ -63,7 +63,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 div.main {
   margin-top: 50px;
@@ -73,5 +73,9 @@ div.data {
   display: inline-block;
   width: 100%;
   max-width: 1080px;
+}
+
+.input /deep/ input {
+  line-height: normal !important;
 }
 </style>
