@@ -394,6 +394,7 @@ div.buttons div.copy-link {
 
 .add-comment /deep/ input {
   border: 1px solid #15151580;
+  line-height: 3 !important;
 }
 
 .add-comment /deep/ div {
