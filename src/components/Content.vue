@@ -241,6 +241,7 @@ export default {
 
       this[actions.WRITE_COMMENT]({ contentPid: this.pid, commentData: this.commentData });
       this.commentData = '';
+      alert('댓글이 작성되었습니다.');
     },
 
     getAnimationSeconds() {

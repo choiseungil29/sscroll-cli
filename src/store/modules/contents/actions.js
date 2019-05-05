@@ -35,7 +35,6 @@ export default {
     axios.post(`/api/comment`, { comment: commentData, content_pid: contentPid, parent_id: parentId })
       .then(res => {
         commit(actions.WRITE_COMMENT, res.data);
-        alert('succeed!');
       }).catch(err => console.log(err));
   },
 
