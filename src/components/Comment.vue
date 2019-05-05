@@ -127,16 +127,9 @@ span.date {
   display: none;
 }
 
-.add-comment {
-  // width: 100%;
-  /*padding-left: 10px;
-  padding-right: 10px; */
-  // padding-bottom: 15px;
-  // display: inline;
-}
-
 .add-comment /deep/ input {
   border: 1px solid #15151580;
+  line-height: normal !important;
 }
 
 .add-comment /deep/ div {
