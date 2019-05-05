@@ -97,7 +97,7 @@ span.title {
 .write-content {
   margin-top: 38px;
   font-size: 14px;
-  color: rgba(21, 21, 21, 0.8);
-  border: solid 1px #151515;
+  color: rgba(21, 21, 21, 0.5);
+  border: solid 1px rgba(21, 21, 21, 0.5);
 }
 </style>
