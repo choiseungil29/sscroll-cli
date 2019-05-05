@@ -81,6 +81,7 @@ export default {
 
       this[actions.WRITE_COMMENT]({ contentPid: this.comment.content_pid, commentData: this.commentData, parentId: this.comment.parent_id || this.comment.id });
       this.commentData = '';
+      alert('답글이 작성되었습니다!');
     }
   }
 }
